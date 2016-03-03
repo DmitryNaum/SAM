@@ -1,0 +1,15 @@
+{
+    "assetBasePath" : "build/asset/",
+    "resultMapPath" : "build/asset/map.json",
+    "assets" : {
+        "app.css" : [
+            "asset/css/1st.css",
+            "asset/css/2nd.css"
+        ],
+        "app.js" : [
+            "asset/js/1st.js",
+            "asset/js/2nd.js"
+        ]
+    }
+    
+}
