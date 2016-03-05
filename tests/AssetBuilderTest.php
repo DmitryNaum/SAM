@@ -65,6 +65,17 @@ class AssetBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(file_exists('vfs://asset/app.js'));
     }
     
+
+    public function testBuild_mapSaved()
+    {
+        $manifestFilePath = $this->getManifestPath();
+        $builder          = new \Dmitrynaum\SAM\AssetBuilder($manifestFilePath);
+
+        $builder->build();
+        
+        $this->assertTrue(file_exists('vfs://asset/map.json'));
+    }
+    
     public function testBuild_hasContent()
     {
         $manifestFilePath = $this->getManifestPath();
