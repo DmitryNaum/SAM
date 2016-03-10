@@ -12,7 +12,19 @@ class AssetManager
     protected $js = [];
     
     protected $css = [];
+    
+    /**
+     *
+     * @var Component\ResultMap
+     */
+    protected $map;
 
+
+    public function __construct(Component\ResultMap $map)
+    {
+        $this->map = $map;
+    }
+    
     public function useJs($assetName)
     {
         $this->js[] = $assetName;
@@ -23,22 +35,13 @@ class AssetManager
         $this->css[] = $assetName;
     }
     
-    public function getUsedCss()
-    {
-        return $this->css;
-    }
-    
-    public function getUsedJs()
-    {
-        return $this->js;
-    }
-    
     public function renderJs()
     {
         $jsTags = [];
         
-        foreach ($this->getUsedJs() as $pathToJsAssetFile) {
-            $jsTags[] = "<script src='{$pathToJsAssetFile}'></script>";
+        foreach ($this->js as $assetName) {
+            $pathToAssetFile = $this->map->getPath($assetName);
+            $jsTags[] = "<script src='{$pathToAssetFile}'></script>";
         }
         
         return $jsTags;
@@ -48,8 +51,9 @@ class AssetManager
     {
         $cssTags = [];
         
-        foreach ($this->getUsedCss() as $pathToJsAssetFile) {
-            $cssTags[] = "<link href='{$pathToJsAssetFile}' rel='stylesheet'>";
+        foreach ($this->css as $assetName) {
+            $pathToAssetFile = $this->map->getPath($assetName);
+            $cssTags[] = "<link rel='stylesheet' type='text/css' href='{$pathToAssetFile}' />";
         }
         
         return $cssTags;
