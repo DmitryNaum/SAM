@@ -127,7 +127,7 @@ class AssetBuilder
     }
 
     /**
-     * 
+     *
      * @return Manifest
      */
     protected function manifest()
@@ -158,16 +158,17 @@ class AssetBuilder
     protected function getCompressor($assetPath)
     {
         $fileExtension = pathinfo($assetPath, PATHINFO_EXTENSION);
-        $compressor = null;
+        $compressor    = null;
 
         switch ($fileExtension) {
             case 'js':
                 $compressor = new \MatthiasMullie\Minify\JS();
+                break;
             case 'css':
                 $compressor = new \MatthiasMullie\Minify\CSS();
+                break;
         }
-        
+
         return $compressor;
     }
-
 }

@@ -41,7 +41,7 @@ class AssetManager
         
         foreach ($this->js as $assetName) {
             $pathToAssetFile = $this->map->getPath($assetName);
-            $jsTags[] = "<script src='{$pathToAssetFile}'></script>";
+            $jsTags[]        = "<script src='{$pathToAssetFile}'></script>";
         }
         
         return $jsTags;
@@ -53,10 +53,9 @@ class AssetManager
         
         foreach ($this->css as $assetName) {
             $pathToAssetFile = $this->map->getPath($assetName);
-            $cssTags[] = "<link rel='stylesheet' type='text/css' href='{$pathToAssetFile}' />";
+            $cssTags[]       = "<link rel='stylesheet' type='text/css' href='{$pathToAssetFile}' />";
         }
         
         return $cssTags;
     }
-    
 }

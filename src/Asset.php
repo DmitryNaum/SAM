@@ -17,7 +17,7 @@ class Asset
 
     /**
      *
-     * @var AssetManager 
+     * @var AssetManager
      */
     protected static $assetManager;
 
@@ -40,7 +40,6 @@ class Asset
     {
         return static::assetManager()->renderCss();
     }
-    
     
     protected function assetManager()
     {

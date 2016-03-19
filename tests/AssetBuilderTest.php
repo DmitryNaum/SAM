@@ -128,7 +128,7 @@ class AssetBuilderTest extends \PHPUnit_Framework_TestCase
         $jsContent = file_get_contents('vfs://asset/build/app.js');
                 
         $this->assertEquals('.one{border:none}.two{border:none}', $cssContent);
-        $this->assertEquals('var a=3;var b=4;', $jsContent);
+        $this->assertEquals('var a=3;var b=4', $jsContent);
         
     }
 

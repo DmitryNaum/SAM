@@ -3,7 +3,7 @@
 namespace Dmitrynaum\SAM\Component;
 
 /**
- * Класс для работы с манифестом    
+ * Класс для работы с манифестом
  *
  * @author Naumov Dmitry <naym333@gmail.com>
  */
@@ -102,5 +102,4 @@ class Manifest
     {
         return $this->assetBasePath;
     }
-
 }
