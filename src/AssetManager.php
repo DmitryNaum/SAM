@@ -44,7 +44,7 @@ class AssetManager
             $jsTags[]        = "<script src='{$pathToAssetFile}'></script>";
         }
         
-        return $jsTags;
+        return join('', $jsTags);
     }
     
     public function renderCss()
@@ -56,6 +56,6 @@ class AssetManager
             $cssTags[]       = "<link rel='stylesheet' type='text/css' href='{$pathToAssetFile}' />";
         }
         
-        return $cssTags;
+        return join('', $cssTags);
     }
 }
