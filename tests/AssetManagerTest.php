@@ -37,7 +37,7 @@ class AssetManagerTest extends \PHPUnit_Framework_TestCase
         return new AssetManager($map);
     }
 
-    public function testRenderJsTags()
+    public function testRenderJs()
     {
         $assetManager = $this->getAssetManager();
         $assetManager->useJs('/assets/some/asset.js');
@@ -48,7 +48,7 @@ class AssetManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertContains($expectedTag, $jsTags);
     }
 
-    public function testRenderCssTags()
+    public function testRenderCss()
     {
         $assetManager = $this->getAssetManager();
         $assetManager->useCss('/assets/some/asset.css');
@@ -57,6 +57,17 @@ class AssetManagerTest extends \PHPUnit_Framework_TestCase
 
         $expectedTag = "<link rel='stylesheet' type='text/css' href='/assets/some/asset.css' />";
         $this->assertContains($expectedTag, $cssTags);
+    }
+    
+    public function testRenderJs_assetNotFound()
+    {
+        $assetManager = $this->getAssetManager();
+        $assetManager->useJs('/assets/some/not-exist-asset.js');
+
+        $this->setExpectedException(\Exception::class);
+        
+        $jsTags = $assetManager->renderJs();
+
     }
 
 }
