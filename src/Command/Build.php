@@ -8,7 +8,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-
 /**
  * Description of build
  *
@@ -22,22 +21,22 @@ class Build extends Command
             ->setName('build')
             ->setDescription('Build assets')
             ->addArgument(
-                'manifest', 
-                null, 
+                'manifest',
+                null,
                 'Path to manifest file.',
                 './manifest.json'
             )
             ->addOption(
-               'compress',
-               'c',
-               InputOption::VALUE_NONE,
-               'Compress assets'
+                'compress',
+                'c',
+                InputOption::VALUE_NONE,
+                'Compress assets'
             )
             ->addOption(
-               'freeze',
-               'f',
-               InputOption::VALUE_NONE,
-               'Freeze assets'
+                'freeze',
+                'f',
+                InputOption::VALUE_NONE,
+                'Freeze assets'
             )
         ;
     }
