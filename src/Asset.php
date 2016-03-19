@@ -5,42 +5,65 @@ namespace Dmitrynaum\SAM;
 use Dmitrynaum\SAM\Component\Manifest;
 
 /**
- * Description of Asset
+ * Класс-фасад для удобной работы с AssetManager`ом
  *
  * @author Naumov Dmitry <naym333@gmail.com>
  */
 class Asset
 {
 
-    public static $manifestFilePath = 'manifest.json';
-    protected static $manifest;
-
     /**
-     *
+     * Путь до manifest файла
+     * @var string
+     */
+    public static $manifestFilePath = 'manifest.json';
+   
+    /**
+     * Объект менеджера ассетов
      * @var AssetManager
      */
     protected static $assetManager;
 
+    /**
+     * Использовать JavaScript Asset
+     * @param string $assetName - имя ассета
+     */
     public static function useJs($assetName)
     {
         static::assetManager()->useJs($assetName);
     }
 
+    /**
+     * Использовать CSS Asset
+     * @param string $assetName - имя ассета
+     */
     public static function useCss($assetName)
     {
         static::assetManager()->useCss($assetName);
     }
 
+    /**
+     * Получить html теги script с используемыми JavaScript asset`ами
+     * @return string
+     */
     public static function renderJs()
     {
         return static::assetManager()->renderJs();
     }
 
+    /**
+     * Получить html теги link с используемыми CSS asset`ами
+     * @return string
+     */
     public static function renderCss()
     {
         return static::assetManager()->renderCss();
     }
     
+    /**
+     * Получить AssetManager
+     * @return AssetManager
+     */
     protected function assetManager()
     {
         if (!static::$assetManager) {

@@ -39,8 +39,16 @@ class Manifest
      * @var string
      */
     protected $cssAssets;
+    
+    /**
+     * Карта скомпилированных asset`ов
+     * @var Dmitrynaum\SAM\Component\AssetMap
+     */
     protected $resultMap;
 
+    /**
+     * @param string $filePath - путь до файла manifest.json
+     */
     public function __construct($filePath)
     {
         $this->filePath  = $filePath;
@@ -55,9 +63,11 @@ class Manifest
      */
     protected function init()
     {
+        // Считываем файл
         $content = file_get_contents($this->filePath);
         $json    = json_decode($content);
 
+        // Заполняем свойства
         $this->assetBasePath = $json->assetBasePath;
         $this->resultMapPath = $json->resultMapPath;
 
@@ -76,11 +86,19 @@ class Manifest
         }
     }
 
+    /**
+     * Получить все js asset`ы которые необходимо собрать
+     * @return string[]
+     */
     public function getJsAssets()
     {
         return $this->jsAssets;
     }
 
+    /**
+     * Получить все css asset`ы которые необходимо собрать
+     * @return string[]
+     */
     public function getCssAssets()
     {
         return $this->cssAssets;
@@ -88,16 +106,20 @@ class Manifest
 
     /**
      * Получить объект карты результатов билдинга
-     * @return \Dmitrynaum\SAM\Component\ResultMap
+     * @return \Dmitrynaum\SAM\Component\AssetMap
      */
     public function resultMap()
     {
         if (!$this->resultMap) {
-            $this->resultMap = new ResultMap($this->assetBasePath, $this->resultMapPath);
+            $this->resultMap = new AssetMap($this->assetBasePath, $this->resultMapPath);
         }
         return $this->resultMap;
     }
 
+    /**
+     * Получить путь до папки где хранятся все asset`ы
+     * @return string
+     */
     public function getAssetBasePath()
     {
         return $this->assetBasePath;

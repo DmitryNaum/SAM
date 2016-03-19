@@ -2,7 +2,7 @@
 namespace Component;
 
 use Dmitrynaum\SAM\Component\Manifest;
-use\Dmitrynaum\SAM\Component\ResultMap;
+use\Dmitrynaum\SAM\Component\AssetMap;
 
 /**
  * Description of ManifestTest
@@ -54,6 +54,6 @@ class ManifestTest extends \PHPUnit_Framework_TestCase
         
         $resultMap = $manifest->resultMap();
         
-        $this->assertInstanceOf(ResultMap::class, $resultMap);
+        $this->assertInstanceOf(AssetMap::class, $resultMap);
     }
 }

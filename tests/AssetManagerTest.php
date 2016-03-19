@@ -4,7 +4,7 @@ namespace tests;
 
 use org\bovigo\vfs\vfsStream;
 use Dmitrynaum\SAM\AssetManager;
-use Dmitrynaum\SAM\Component\ResultMap;
+use Dmitrynaum\SAM\Component\AssetMap;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 
@@ -32,7 +32,7 @@ class AssetManagerTest extends \PHPUnit_Framework_TestCase
 
         file_put_contents('vfs://asset/map.json', json_encode($assets));
 
-        $map = new ResultMap('/assets', 'vfs://asset/map.json');
+        $map = new AssetMap('/assets', 'vfs://asset/map.json');
 
         return new AssetManager($map);
     }

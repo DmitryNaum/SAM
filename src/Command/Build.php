@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Description of build
+ * Команда для сборки (компиляции) asset`ов
  *
  * @author Naumov Dmitry <naym333@gmail.com>
  */

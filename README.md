@@ -14,7 +14,7 @@
     "assetBasePath" : "Базовая папка куда будут сохранены все ассеты. Должна быть доступна из web!",
     "resultMapPath" : "Путь до карты скомпилированных ассетов ",
     "assets" : { 
-        "Название файла в который будет сохранен скомпилированный ассет (app.css)" : [
+        "Название файла в который будет сохранен скомпилированный ассет (app.css) является названием asset`а " : [
             "Файл который будет объединен с другими и записан в app.css",
             "Файл который будет объединен с другими и записан в app.css"
         ]
@@ -68,9 +68,9 @@ php bin/build_asset build my_manifest.json -с -f
 ```php
 <?php
 // Добавляем asset
-Dmitrynaum\SAM\Asset::useJs('app.js');
+Dmitrynaum\SAM\Asset::useCss('app.Css');
 // Выводим ассет на страницу
-echo Dmitrynaum\SAM\Asset::renderJs();
+echo Dmitrynaum\SAM\Asset::renderCss();
 ```
 
 # ToDo
