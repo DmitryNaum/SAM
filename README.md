@@ -14,7 +14,7 @@
     "assetBasePath" : "Базовая папка куда будут сохранены все ассеты. Должна быть доступна из web!",
     "resultMapPath" : "Путь до карты скомпилированных ассетов ",
     "assets" : { 
-        "название файла в который будет сохранен скомпилированный ассет (build/asset/app.css)" : [
+        "Название файла в который будет сохранен скомпилированный ассет (app.css)" : [
             "Файл который будет объединен с другими и записан в app.css",
             "Файл который будет объединен с другими и записан в app.css"
         ]
@@ -25,8 +25,8 @@
 Пример `manifest.json`
 ```json
 {
-    "assetBasePath" : "build/asset/",
-    "resultMapPath" : "build/asset/map.json",
+    "assetBasePath" : "public/build/",
+    "resultMapPath" : "asset/map.json",
     "assets" : {
         "app.css" : [
             "asset/css/first.css",
@@ -36,6 +36,10 @@
     
 }
 ```
+
+Asset файлы сохраяются в папку которая указана в `assetBasePath`. Т.е. asset `app.css` из примера
+выше будет сохранен в `public/build/app.css`
+
 ## Компиляция
 Есть несколько режимов компиляции ассетов.
 1. Простая компиляция. SAM просто соберет все asset\`ы
