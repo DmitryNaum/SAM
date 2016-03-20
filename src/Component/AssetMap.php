@@ -9,13 +9,6 @@ namespace Dmitrynaum\SAM\Component;
  */
 class AssetMap
 {
-
-    /**
-     * Путь до папки где хранятся все asset`ы
-     * @var string
-     */
-    protected $assetbasePath;
-    
     /**
      * Путь до файла с картой скомпилированных asset`ов
      * @var string
@@ -36,12 +29,10 @@ class AssetMap
     protected $loaded;
 
     /**
-     * @param string $assetbasePath - Путь до папки где хранятся все asset`ы
      * @param string$mapPath - Путь до файла с картой скомпилированных asset`ов
      */
-    public function __construct($assetbasePath, $mapPath)
+    public function __construct($mapPath)
     {
-        $this->assetbasePath = $assetbasePath;
         $this->mapPath       = $mapPath;
         $this->assets        = [];
     }
@@ -79,7 +70,7 @@ class AssetMap
         }
         
         if (isset($this->assets[$assetName])) {
-            return $this->assetbasePath.'/'.$this->assets[$assetName];
+            return $this->assets[$assetName];
         }
         
         throw new \Exception("Asset '{$assetName}' not found");

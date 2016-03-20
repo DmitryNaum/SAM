@@ -49,7 +49,7 @@ class AssetTest extends \PHPUnit_Framework_TestCase
 
         $js = Asset::renderJs();
 
-        $this->assertContains("<script src='vfs://asset/build/some/asset.js'></script>", $js);
+        $this->assertContains("<script src='some/asset.js'></script>", $js);
     }
 
     public function testGetCss()
@@ -58,7 +58,7 @@ class AssetTest extends \PHPUnit_Framework_TestCase
 
         $css = Asset::renderCss();
         
-        $this->assertContains("<link rel='stylesheet' type='text/css' href='vfs://asset/build/some/asset.css' />", $css);
+        $this->assertContains("<link rel='stylesheet' type='text/css' href='some/asset.css' />", $css);
     }
 
 }

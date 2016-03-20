@@ -26,13 +26,13 @@ class AssetManagerTest extends \PHPUnit_Framework_TestCase
     protected function getAssetManager()
     {
         $assets = [
-            '/assets/some/asset.js'  => 'some/asset.js',
-            '/assets/some/asset.css' => 'some/asset.css',
+            'some/asset.js'  => '/assets/some/asset.js',
+            'some/asset.css' => '/assets/some/asset.css',
         ];
 
         file_put_contents('vfs://asset/map.json', json_encode($assets));
 
-        $map = new AssetMap('/assets', 'vfs://asset/map.json');
+        $map = new AssetMap('vfs://asset/map.json');
 
         return new AssetManager($map);
     }
@@ -40,7 +40,7 @@ class AssetManagerTest extends \PHPUnit_Framework_TestCase
     public function testRenderJs()
     {
         $assetManager = $this->getAssetManager();
-        $assetManager->useJs('/assets/some/asset.js');
+        $assetManager->useJs('some/asset.js');
 
         $jsTags = $assetManager->renderJs();
 
@@ -51,7 +51,7 @@ class AssetManagerTest extends \PHPUnit_Framework_TestCase
     public function testRenderCss()
     {
         $assetManager = $this->getAssetManager();
-        $assetManager->useCss('/assets/some/asset.css');
+        $assetManager->useCss('some/asset.css');
 
         $cssTags = $assetManager->renderCss();
 

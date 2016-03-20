@@ -23,6 +23,31 @@ class Asset
      * @var AssetManager
      */
     protected static $assetManager;
+    
+    /**
+     * Включить режим разработки
+     */
+    public function enableDevelopmentMode()
+    {
+        static::assetManager()->enableDevelopmentMode();
+    }
+    
+    /**
+     * Выключить режим разработки
+     */
+    public function disableDevelopmentMode()
+    {
+        static::assetManager()->disableDevelopmentMode();
+    }
+    
+    /**
+     * Включен ли режим разработки
+     * @return bool
+     */
+    public function isDevelopmentModeEnabled()
+    {
+        return static::assetManager()->isDevelopmentModeEnabled();
+    }
 
     /**
      * Использовать JavaScript Asset

@@ -1,0 +1,16 @@
+#!/usr/bin/env php
+<?php
+if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
+    require_once __DIR__ . '/../vendor/autoload.php';
+} else {
+    require_once __DIR__ . '/../../../autoload.php';
+}
+
+use Dmitrynaum\SAM\Command\Build;
+use Dmitrynaum\SAM\Command\StartServer;
+use Symfony\Component\Console\Application;
+
+$application = new Application();
+$application->add(new Build());
+$application->add(new StartServer());
+$application->run();

@@ -111,7 +111,7 @@ class Manifest
     public function resultMap()
     {
         if (!$this->resultMap) {
-            $this->resultMap = new AssetMap($this->assetBasePath, $this->resultMapPath);
+            $this->resultMap = new AssetMap($this->resultMapPath);
         }
         return $this->resultMap;
     }
