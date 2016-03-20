@@ -1,6 +1,6 @@
 <?php
 
-namespace tests;
+namespace Dmitrynaum\SAM\Test;
 
 use org\bovigo\vfs\vfsStream;
 use Dmitrynaum\SAM\AssetManager;

@@ -19,7 +19,8 @@
     ],
     "autoload": {
         "psr-4": {
-            "Dmitrynaum\\SAM\\": "src/"
+            "Dmitrynaum\\SAM\\": "src/",
+            "Dmitrynaum\\SAM\\Test\\": "tests/"
         }
     }
 }

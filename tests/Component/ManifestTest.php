@@ -1,8 +1,10 @@
 <?php
-namespace Component;
+namespace Dmitrynaum\SAM\Test\Component;
 
-use Dmitrynaum\SAM\Component\Manifest;
-use\Dmitrynaum\SAM\Component\AssetMap;
+use org\bovigo\vfs\vfsStream;
+use org\bovigo\vfs\vfsStreamWrapper;
+use org\bovigo\vfs\vfsStreamDirectory;
+use Dmitrynaum\SAM\Component\AssetMap;
 
 /**
  * Description of ManifestTest
@@ -11,46 +13,68 @@ use\Dmitrynaum\SAM\Component\AssetMap;
  */
 class ManifestTest extends \PHPUnit_Framework_TestCase
 {
-    protected function makeManifest()
+    protected function makeManifest($assets)
     {
-        return new Manifest(__DIR__.'/Fake/manifest.json');
+        vfsStream::setup();
+
+        $rootDir  = new vfsStreamDirectory('asset');
+        $buildDir = new vfsStreamDirectory('build');
+        $someDir  = new vfsStreamDirectory('somedir');
+
+        $rootDir->addChild($buildDir);
+        $buildDir->addChild($someDir);
+
+        vfsStreamWrapper::register();
+        vfsStreamWrapper::setRoot($rootDir);
+
+        $manifest = [
+            'assetBasePath' => 'vfs://asset/build',
+            'resultMapPath' => 'vfs://asset/map.json',
+            'assets'        => $assets,
+        ];
+
+        file_put_contents('vfs://asset/manifest.json', json_encode($manifest));
+
+        file_put_contents('vfs://asset/first.js', 'var a=3;');
+        
+        $manifest = new \Dmitrynaum\SAM\Component\Manifest('vfs://asset/manifest.json');
+        
+        return $manifest;
     }
     
     public function testGetJsAssets()
     {
-        $manifest = $this->makeManifest();
-        
-        $assetFiles = $manifest->getJsAssets();
-        
         $expected = [
             "app.js" => [
-                "asset/js/1st.js",
-                "asset/js/2nd.js",
+                "vfs://asset/first.js",
+                "vfs://asset/second.js"
             ]
         ];
+        $manifest = $this->makeManifest($expected);
+        
+        $assetFiles = $manifest->getJsAssets();
         
         $this->assertEquals($expected, $assetFiles);
     }
     
     public function testGetCssAssets()
     {
-        $manifest = $this->makeManifest();
-        
-        $assetFiles = $manifest->getCssAssets();
-        
         $expected = [
             "app.css" => [
-                "asset/css/1st.css",
-                "asset/css/2nd.css",
+                "vfs://asset/first.css",
+                "vfs://asset/second.css"
             ]
         ];
+        $manifest = $this->makeManifest($expected);
+        
+        $assetFiles = $manifest->getCssAssets();
         
         $this->assertEquals($expected, $assetFiles);
     }
     
     public function testResultMap()
     {
-        $manifest = $this->makeManifest();
+        $manifest = $this->makeManifest([]);
         
         $resultMap = $manifest->resultMap();
         
