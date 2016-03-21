@@ -90,6 +90,10 @@ class Asset
     /**
      * Получить html теги script используемых JavaScript asset`ов
      * @param array $attributes Массив атрибутов тега
+     * ['Имя атрибута' => 'значение']
+     * ['type' => 'text/javascript']
+     * ['атрибут']
+     * ['async', 'defer']
      * @return string
      */
     public static function renderJs(array $attributes = [])
