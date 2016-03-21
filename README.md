@@ -1,6 +1,9 @@
 # SAM - Simple Asset Manager
 Это простой asset manager для управления js и css файлами.
 
+[![Build Status](https://travis-ci.org/DmitryNaum/SAM.svg?branch=master)](https://travis-ci.org/DmitryNaum/SAM)
+[![codecov.io](https://codecov.io/github/DmitryNaum/SAM/coverage.svg?branch=master)](https://codecov.io/github/DmitryNaum/SAM?branch=master)
+
 ## Возможности
 - Объединять разные css и js файлы в один
 - Сжимать css и js (минифицировать)
