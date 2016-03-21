@@ -60,5 +60,44 @@ class AssetTest extends \PHPUnit_Framework_TestCase
         
         $this->assertContains("<link rel='stylesheet' type='text/css' href='some/asset.css' />", $css);
     }
+    
+    public function testUseRemoteJs()
+    {
+        Asset::useRemoteJs('http://some.host/some.js');
+        
+        $jsTags = Asset::renderJs();
+        
+        $this->assertContains('http://some.host/some.js', $jsTags);
+    }
+
+    public function testUseRemoteCss()
+    {
+        Asset::useRemoteCss('http://some.host/some.css');
+        
+        $cssTags = Asset::renderCss();
+
+        $this->assertContains('http://some.host/some.css', $cssTags);
+    }
+    
+    public function testIsDevelopmentModeEnabled()
+    {
+        $this->assertFalse(Asset::isDevelopmentModeEnabled());
+    }
+    
+    public function testEnableDevelopmentMode()
+    {
+        Asset::enableDevelopmentMode();
+        
+        $this->assertTrue(Asset::isDevelopmentModeEnabled());
+    }
+    
+    public function testDisableDevelopmentMode()
+    {
+        Asset::enableDevelopmentMode();
+
+        Asset::disableDevelopmentMode();
+        
+        $this->assertFalse(Asset::isDevelopmentModeEnabled());
+    }
 
 }

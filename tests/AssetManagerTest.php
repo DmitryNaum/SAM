@@ -69,5 +69,74 @@ class AssetManagerTest extends \PHPUnit_Framework_TestCase
         $jsTags = $assetManager->renderJs();
 
     }
+    
+    public function testUseRemoteJs()
+    {
+        $assetManager = $this->getAssetManager();
+        
+        $assetManager->useRemoteJs('http://some.host/some.js');
+        
+        $jsTags = $assetManager->renderJs();
+        $this->assertContains('http://some.host/some.js', $jsTags);
+    }
+    
+    public function testUseRemoteCss()
+    {
+        $assetManager = $this->getAssetManager();
+        
+        $assetManager->useRemoteCss('http://some.host/some.css');
+        
+        $cssTags = $assetManager->renderCss();
+        $this->assertContains('http://some.host/some.css', $cssTags);
+    }
+    
+    public function testIsDevelopmentModeEnabled()
+    {
+        $assetManager = $this->getAssetManager();
+        
+        $this->assertFalse($assetManager->isDevelopmentModeEnabled());
+    }
+    
+    public function testEnableDevelopmentMode()
+    {
+        $assetManager = $this->getAssetManager();
+        
+        $assetManager->enableDevelopmentMode();
+        
+        $this->assertTrue($assetManager->isDevelopmentModeEnabled());
+    }
+    
+    public function testDisableDevelopmentMode()
+    {
+        $assetManager = $this->getAssetManager();
+        $assetManager->enableDevelopmentMode();
+        
+        $assetManager->disableDevelopmentMode();
+        
+        $this->assertFalse($assetManager->isDevelopmentModeEnabled());
+    }
 
+    public function testRenderJs_enabledDevelopmentMode()
+    {
+        $assetManager = $this->getAssetManager();
+        
+        $assetManager->enableDevelopmentMode();
+        $assetManager->useJs('some/asset.js');
+        
+        $jsTags = $assetManager->renderJs();
+        
+        $this->assertContains('http://127.0.0.1:8652/?asset=some/asset.js', $jsTags);
+    }
+
+    public function testRenderCss_enabledDevelopmentMode()
+    {
+        $assetManager = $this->getAssetManager();
+        
+        $assetManager->enableDevelopmentMode();
+        $assetManager->useCss('some/asset.css');
+        
+        $cssTags = $assetManager->renderCss();
+        
+        $this->assertContains('http://127.0.0.1:8652/?asset=some/asset.css', $cssTags);
+    }
 }

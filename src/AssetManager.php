@@ -14,12 +14,24 @@ class AssetManager
      * @var string
      */
     protected $js = [];
+    
+    /**
+     * Список ссылок на удаленные JavaScript файлы
+     * @var string[]
+     */
+    protected $remoteJs = [];
 
     /**
      * Список используемых Css asset`ов
      * @var string
      */
     protected $css = [];
+    
+    /**
+     * Список ссылок на удаленные css файлы
+     * @var string[]
+     */
+    protected $remoteCss = [];
 
     /**
      * Карта asset`ов
@@ -37,7 +49,7 @@ class AssetManager
      * Host на котором висит сервер
      * @var string
      */
-    protected $developmentHost = 'http://127.0.0.1:8652';
+    protected $developmentHost = 'http://127.0.0.1:8652/';
 
     /**
      * @param \Dmitrynaum\SAM\Component\AssetMap $map - Карта asset`ов
@@ -90,6 +102,26 @@ class AssetManager
     {
         $this->css[] = $assetName;
     }
+    
+    /**
+     * Использовать удаленный css.
+     * Ссылка просто оборачивается в тег link
+     * @param string $cssUrl ссылка на css файл
+     */
+    public function useRemoteCss($cssUrl)
+    {
+        $this->remoteCss[] = $cssUrl;
+    }
+    
+    /**
+     * Использовать удаленный js.
+     * Ссылка просто оборачивается в тег script
+     * @param string $jsUrl Ссылка на js файл
+     */
+    public function useRemoteJs($jsUrl)
+    {
+        $this->remoteJs[] = $jsUrl;
+    }
 
     /**
      * Получить html теги script с используемыми JavaScript asset`ами
@@ -97,18 +129,18 @@ class AssetManager
      */
     public function renderJs()
     {
-        $jsTags = [];
-
+        $jsUrls = $this->remoteJs;
+        
         foreach ($this->js as $assetName) {
-            if ($this->isDevelopmentModeEnabled()) {
-                $pathToAssetFile = "{$this->developmentHost}?asset=$assetName";
-            } else {
-                $pathToAssetFile = $this->map->getAssetPath($assetName);
-            }
-            $jsTags[] = "<script src='{$pathToAssetFile}'></script>";
+            $jsUrls[] = $this->getAssetUrl($assetName);
+        }
+        
+        $jsTags = '';
+        foreach ($jsUrls as $jsUrl) {
+            $jsTags .= $this->wrapJsLink($jsUrl);
         }
 
-        return join('', $jsTags);
+        return $jsTags;
     }
 
     /**
@@ -117,17 +149,53 @@ class AssetManager
      */
     public function renderCss()
     {
-        $cssTags = [];
-
+        $cssUrls = $this->remoteCss;
+        
         foreach ($this->css as $assetName) {
-            if ($this->isDevelopmentModeEnabled()) {
-                $pathToAssetFile = "{$this->developmentHost}?asset=$assetName";
-            } else {
-                $pathToAssetFile = $this->map->getAssetPath($assetName);
-            }
-            $cssTags[] = "<link rel='stylesheet' type='text/css' href='{$pathToAssetFile}' />";
+            $cssUrls[] = $this->getAssetUrl($assetName);
+        }
+        
+        $cssTags = '';
+        foreach ($cssUrls as $cssUrl) {
+            $cssTags .= $this->wrapCssLink($cssUrl);
         }
 
-        return join('', $cssTags);
+        return $cssTags;
+    }
+    
+    /**
+     * Получить ссылку на asset по его имени
+     * @param sring $assetName название asset`а
+     * @return string
+     */
+    protected function getAssetUrl($assetName)
+    {
+        if ($this->isDevelopmentModeEnabled()) {
+            $assetUrl = "{$this->developmentHost}?asset=$assetName";
+        } else {
+            $assetUrl = $this->map->getAssetPath($assetName);
+        }
+        
+        return $assetUrl;
+    }
+    
+    /**
+     * Обернуть ссылку на JS файл в тег script
+     * @param string $pathToJsFile
+     * @return string
+     */
+    protected function wrapJsLink($pathToJsFile)
+    {
+        return "<script src='{$pathToJsFile}'></script>";
+    }
+    
+    /**
+     * Обернуть ссылку на Css файл в тег script
+     * @param string $pathToCssFile
+     * @return string
+     */
+    protected function wrapCssLink($pathToCssFile)
+    {
+        return "<link rel='stylesheet' type='text/css' href='{$pathToCssFile}' />";
     }
 }

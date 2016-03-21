@@ -27,7 +27,7 @@ class Asset
     /**
      * Включить режим разработки
      */
-    public function enableDevelopmentMode()
+    public static function enableDevelopmentMode()
     {
         static::assetManager()->enableDevelopmentMode();
     }
@@ -35,7 +35,7 @@ class Asset
     /**
      * Выключить режим разработки
      */
-    public function disableDevelopmentMode()
+    public static function disableDevelopmentMode()
     {
         static::assetManager()->disableDevelopmentMode();
     }
@@ -44,7 +44,7 @@ class Asset
      * Включен ли режим разработки
      * @return bool
      */
-    public function isDevelopmentModeEnabled()
+    public static function isDevelopmentModeEnabled()
     {
         return static::assetManager()->isDevelopmentModeEnabled();
     }
@@ -65,6 +65,16 @@ class Asset
     public static function useCss($assetName)
     {
         static::assetManager()->useCss($assetName);
+    }
+    
+    public static function useRemoteJs($jsUrl)
+    {
+        static::assetManager()->useRemoteJs($jsUrl);
+    }
+
+    public static function useRemoteCss($cssUrl)
+    {
+        static::assetManager()->useRemoteCss($cssUrl);
     }
 
     /**
@@ -89,7 +99,7 @@ class Asset
      * Получить AssetManager
      * @return AssetManager
      */
-    protected function assetManager()
+    protected static function assetManager()
     {
         if (!static::$assetManager) {
             $manifest              = new Manifest(static::$manifestFilePath);
