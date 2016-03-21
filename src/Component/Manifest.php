@@ -47,7 +47,7 @@ class Manifest
     protected $resultMap;
 
     /**
-     * @param string $filePath - путь до файла manifest.json
+     * @param string $filePath - путь до файла sam.json
      */
     public function __construct($filePath)
     {

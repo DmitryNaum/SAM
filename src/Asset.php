@@ -16,7 +16,7 @@ class Asset
      * Путь до manifest файла
      * @var string
      */
-    public static $manifestFilePath = 'manifest.json';
+    public static $manifestFilePath = 'sam.json';
    
     /**
      * Объект менеджера ассетов

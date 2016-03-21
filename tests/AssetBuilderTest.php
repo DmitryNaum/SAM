@@ -31,7 +31,7 @@ class AssetBuilderTest extends \PHPUnit_Framework_TestCase
         vfsStreamWrapper::register();
         vfsStreamWrapper::setRoot($rootDir);
 
-        $manifestFilePath = 'vfs://asset/manifest.json';
+        $manifestFilePath = 'vfs://asset/sam.json';
 
         $manifest = [
             'assetBasePath' => $this->assetBasePath,

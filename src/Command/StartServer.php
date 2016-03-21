@@ -20,7 +20,7 @@ class StartServer extends Command
         $this
             ->setName('start-server')
             ->setDescription('Starts a webserver to building assets in realtime (DEVELOPMENT ONLY!)')
-            ->addArgument('manifest', null, 'Path to manifest file.', 'manifest.json');
+            ->addArgument('manifest', null, 'Path to manifest file.', 'sam.json');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

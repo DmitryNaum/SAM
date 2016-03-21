@@ -9,7 +9,7 @@
 
 ## Использование
 
-В корне проекта должен находится файл `manifest.json` в котором описаны все необходимые для SAM`а параметры
+В корне проекта должен находится файл настроек `sam.json` в котором описаны все необходимые для SAM`а параметры
 ```json
 {
     "assetBasePath" : "Базовая папка куда будут сохранены все asset\`ы. Должна быть доступна из web!",
@@ -23,7 +23,7 @@
 }
 ```
 
-Пример `manifest.json`
+Пример `sam.json`
 ```json
 {
     "assetBasePath" : "public/build/",
@@ -59,9 +59,9 @@ php vendor/bin/sam build -f
  ```
 php vendor/bin/sam build -с -f
 ```
-Также компилятору asset\`ов можно указать путь до `manifest.json`.
+Также компилятору asset\`ов можно указать путь до `sam.json`.
 ```
-php vendor/bin/sam build my_manifest.json -с -f
+php vendor/bin/sam build my_sam.json -с -f
 ```
 
 ## Рендеринг

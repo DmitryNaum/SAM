@@ -33,13 +33,13 @@ class AssetBuilder
     protected $manifest;
     
     /**
-     * Путь до файла manifest.json
+     * Путь до файла sam.json
      * @var string
      */
     protected $manifestFilePath;
 
     /**
-     * @param string $manifestFilePath - Путь до файла manifest.json
+     * @param string $manifestFilePath - Путь до файла sam.json
      */
     public function __construct($manifestFilePath)
     {

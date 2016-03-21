@@ -16,7 +16,7 @@ class AssetServerBuilder extends AssetBuilder
     protected $appPath;
     
     /**
-     * @param string $manifestFilePath - путь до файла manifest.json
+     * @param string $manifestFilePath - путь до файла sam.json
      * @param string $appPath - Путь до приложения
      */
     public function __construct($manifestFilePath, $appPath)

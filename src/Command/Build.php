@@ -24,7 +24,7 @@ class Build extends Command
                 'manifest',
                 null,
                 'Path to manifest file.',
-                './manifest.json'
+                './sam.json'
             )
             ->addOption(
                 'compress',

@@ -33,11 +33,11 @@ class ManifestTest extends \PHPUnit_Framework_TestCase
             'assets'        => $assets,
         ];
 
-        file_put_contents('vfs://asset/manifest.json', json_encode($manifest));
+        file_put_contents('vfs://asset/sam.json', json_encode($manifest));
 
         file_put_contents('vfs://asset/first.js', 'var a=3;');
         
-        $manifest = new \Dmitrynaum\SAM\Component\Manifest('vfs://asset/manifest.json');
+        $manifest = new \Dmitrynaum\SAM\Component\Manifest('vfs://asset/sam.json');
         
         return $manifest;
     }

@@ -23,7 +23,7 @@ class AssetTest extends \PHPUnit_Framework_TestCase
         vfsStreamWrapper::setRoot(new vfsStreamDirectory('asset'));
 
 
-        $manifestFilePath = 'vfs://asset/manifest.json';
+        $manifestFilePath = 'vfs://asset/sam.json';
         $mapPath          = 'vfs://asset/map.json';
 
         $manifest = [
