@@ -49,7 +49,7 @@ class AssetTest extends \PHPUnit_Framework_TestCase
 
         $js = Asset::renderJs();
 
-        $this->assertContains("<script src='some/asset.js'></script>", $js);
+        $this->assertRegExp("/\<script.+src\=\'some\/asset.js\'.+\>\<\/script\>/", $js);
     }
 
     public function testGetCss()
@@ -98,6 +98,24 @@ class AssetTest extends \PHPUnit_Framework_TestCase
         Asset::disableDevelopmentMode();
         
         $this->assertFalse(Asset::isDevelopmentModeEnabled());
+    }
+    
+    public function testRenderDeferJs_withDeferAttribute()
+    {
+        Asset::useJs('some.js');
+        
+        $jsTag = Asset::renderJs(['defer']);
+        
+        $this->assertRegExp('/defer/', $jsTag);
+    }
+
+    public function testRenderJs_withTypeAttribute()
+    {
+        Asset::useJs('some.js');
+        
+        $jsTag = Asset::renderJs(['type' => 'text/javascript']);
+        
+        $this->assertRegExp("/type\=\'text\/javascript\'/", $jsTag);
     }
 
 }

@@ -71,9 +71,18 @@ php vendor/bin/sam build my_sam.json -с -f
 ```php
 <?php
 // Добавляем asset
-Dmitrynaum\SAM\Asset::useCss('app.Css');
+Dmitrynaum\SAM\Asset::useCss('app.js');
 // Выводим asset на страницу
 echo Dmitrynaum\SAM\Asset::renderCss();
+```
+
+Рендеринг с атрибутами
+```php
+<?php
+// Добавляем asset
+Dmitrynaum\SAM\Asset::useJs('app.js');
+// Выводим asset на страницу
+echo Dmitrynaum\SAM\Asset::renderCss(['defer']);
 ```
 
 Для использования удаленных js и css файлов Вы можете воспользоваться методами `Dmitrynaum\SAM\Asset::useRemoteJs()` и `Dmitrynaum\SAM\Asset::useRemoteCss()`.
@@ -110,4 +119,4 @@ php vendor/bin/sam start-server
 
 # ToDo
 - [x] Добавить возможность собирать asset\`ы на лету в development окружении для простой разработки.
-- [ ] Добавить возможность рендерить теги `javascript` с атрибутами `async` и `defer`
+- [x] Добавить возможность рендерить теги `javascript` с атрибутами `async` и `defer`

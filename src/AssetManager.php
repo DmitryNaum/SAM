@@ -11,7 +11,7 @@ class AssetManager
 {
     /**
      * Список используемых JavaScript asset`ов
-     * @var string
+     * @var string[]
      */
     protected $js = [];
     
@@ -23,7 +23,7 @@ class AssetManager
 
     /**
      * Список используемых Css asset`ов
-     * @var string
+     * @var string[]
      */
     protected $css = [];
     
@@ -46,7 +46,7 @@ class AssetManager
     protected $developmentMode;
     
     /**
-     * Host на котором висит сервер
+     * Host на котором висит dev сервер
      * @var string
      */
     protected $developmentHost = 'http://127.0.0.1:8652/';
@@ -96,7 +96,7 @@ class AssetManager
 
     /**
      * Использовать CSS Asset
-     * @param string $assetName - имя ассета
+     * @param string $assetName - Имя ассета
      */
     public function useCss($assetName)
     {
@@ -106,7 +106,7 @@ class AssetManager
     /**
      * Использовать удаленный css.
      * Ссылка просто оборачивается в тег link
-     * @param string $cssUrl ссылка на css файл
+     * @param string $cssUrl Ссылка на css файл
      */
     public function useRemoteCss($cssUrl)
     {
@@ -125,9 +125,14 @@ class AssetManager
 
     /**
      * Получить html теги script с используемыми JavaScript asset`ами
+     * @param array $attributes Массив атрибутов тега
+     * ['Имя атрибута' => 'значение']
+     * ['type' => 'text/javascript']
+     * ['атрибут']
+     * ['async', 'defer']
      * @return string
      */
-    public function renderJs()
+    public function renderJs(array $attributes = [])
     {
         $jsUrls = $this->remoteJs;
         
@@ -137,7 +142,7 @@ class AssetManager
         
         $jsTags = '';
         foreach ($jsUrls as $jsUrl) {
-            $jsTags .= $this->wrapJsLink($jsUrl);
+            $jsTags .= $this->wrapJsLink($jsUrl, $attributes);
         }
 
         return $jsTags;
@@ -162,7 +167,7 @@ class AssetManager
 
         return $cssTags;
     }
-    
+        
     /**
      * Получить ссылку на asset по его имени
      * @param sring $assetName название asset`а
@@ -182,11 +187,27 @@ class AssetManager
     /**
      * Обернуть ссылку на JS файл в тег script
      * @param string $pathToJsFile
+     * @param array $attributes Массив атрибутов тега
+     * ['Имя атрибута' => 'значение']
+     * ['type' => 'text/javascript']
+     * ['атрибут']
+     * ['async', 'defer']
      * @return string
      */
-    protected function wrapJsLink($pathToJsFile)
+    protected function wrapJsLink($pathToJsFile, array $attributes = [])
     {
-        return "<script src='{$pathToJsFile}'></script>";
+        
+        $attrs = [];
+        foreach ($attributes as $arrtibute => $value) {
+            if (is_numeric($arrtibute)) {
+                $attrs[] = $value;
+            } else {
+                $attrs[] = "{$arrtibute}='{$value}'";
+            }
+        }
+        
+        $attributesString = join(' ', $attrs);
+        return "<script src='{$pathToJsFile}' {$attributesString}></script>";
     }
     
     /**

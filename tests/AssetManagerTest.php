@@ -4,8 +4,8 @@ namespace Dmitrynaum\SAM\Test;
 
 use org\bovigo\vfs\vfsStream;
 use Dmitrynaum\SAM\AssetManager;
-use Dmitrynaum\SAM\Component\AssetMap;
 use org\bovigo\vfs\vfsStreamWrapper;
+use Dmitrynaum\SAM\Component\AssetMap;
 use org\bovigo\vfs\vfsStreamDirectory;
 
 /**
@@ -44,8 +44,7 @@ class AssetManagerTest extends \PHPUnit_Framework_TestCase
 
         $jsTags = $assetManager->renderJs();
 
-        $expectedTag = "<script src='/assets/some/asset.js'></script>";
-        $this->assertContains($expectedTag, $jsTags);
+        $this->assertRegExp("/\<script.+src\=\'\/assets\/some\/asset.js\'.+\>\<\/script\>/", $jsTags);
     }
 
     public function testRenderCss()
@@ -67,7 +66,6 @@ class AssetManagerTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(\Exception::class);
         
         $jsTags = $assetManager->renderJs();
-
     }
     
     public function testUseRemoteJs()
@@ -138,5 +136,25 @@ class AssetManagerTest extends \PHPUnit_Framework_TestCase
         $cssTags = $assetManager->renderCss();
         
         $this->assertContains('http://127.0.0.1:8652/?asset=some/asset.css', $cssTags);
+    }
+    
+    public function testRenderJs_withDeferAttribute()
+    {
+        $assetManager = $this->getAssetManager();
+        $assetManager->useJs('some/asset.js');
+
+        $jsTags = $assetManager->renderJs(['defer']);
+
+        $this->assertRegExp('/defer/', $jsTags);
+    }
+    
+    public function testRenderJs_withTypeAttribute()
+    {
+        $assetManager = $this->getAssetManager();
+        $assetManager->useJs('some/asset.js');
+
+        $jsTags = $assetManager->renderJs(['type' => 'text/javascript']);
+
+        $this->assertRegExp("/type\=\'text\/javascript\'/", $jsTags);
     }
 }

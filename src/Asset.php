@@ -67,25 +67,36 @@ class Asset
         static::assetManager()->useCss($assetName);
     }
     
+    /**
+     * Использовать удаленный js.
+     * Ссылка просто оборачивается в тег script
+     * @param string $jsUrl Ссылка на js файл
+     */
     public static function useRemoteJs($jsUrl)
     {
         static::assetManager()->useRemoteJs($jsUrl);
     }
 
+    /**
+     * Использовать удаленный css.
+     * Ссылка просто оборачивается в тег link
+     * @param string $cssUrl Ссылка на css файл
+     */
     public static function useRemoteCss($cssUrl)
     {
         static::assetManager()->useRemoteCss($cssUrl);
     }
 
     /**
-     * Получить html теги script с используемыми JavaScript asset`ами
+     * Получить html теги script используемых JavaScript asset`ов
+     * @param array $attributes Массив атрибутов тега
      * @return string
      */
-    public static function renderJs()
+    public static function renderJs(array $attributes = [])
     {
-        return static::assetManager()->renderJs();
+        return static::assetManager()->renderJs($attributes);
     }
-
+    
     /**
      * Получить html теги link с используемыми CSS asset`ами
      * @return string
