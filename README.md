@@ -3,6 +3,12 @@
 
 [![Build Status](https://travis-ci.org/DmitryNaum/SAM.svg?branch=master)](https://travis-ci.org/DmitryNaum/SAM)
 [![codecov.io](https://codecov.io/github/DmitryNaum/SAM/coverage.svg?branch=master)](https://codecov.io/github/DmitryNaum/SAM?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/DmitryNaum/SAM/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/DmitryNaum/SAM/?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/dmitrynaum/sam/v/stable)](https://packagist.org/packages/dmitrynaum/sam) 
+[![Total Downloads](https://poser.pugx.org/dmitrynaum/sam/downloads)](https://packagist.org/packages/dmitrynaum/sam) 
+[![Latest Unstable Version](https://poser.pugx.org/dmitrynaum/sam/v/unstable)](https://packagist.org/packages/dmitrynaum/sam) 
+[![License](https://poser.pugx.org/dmitrynaum/sam/license)](https://packagist.org/packages/dmitrynaum/sam)
+
 
 ## Возможности
 - Объединять разные css и js файлы в один

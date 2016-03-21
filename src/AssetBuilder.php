@@ -46,7 +46,6 @@ class AssetBuilder
         $this->manifestFilePath = $manifestFilePath;
         $this->needCompress     = false;
         $this->needFreeze       = false;
-        $this->resultMap        = [];
     }
 
     /**
@@ -152,7 +151,7 @@ class AssetBuilder
 
     /**
      * Скомпилировать asset`ы
-     * @param strin[] $assets Список asset`ов для компиляции
+     * @param string[] $assets Список asset`ов для компиляции
      */
     protected function buildAssets($assets)
     {

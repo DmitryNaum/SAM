@@ -23,6 +23,12 @@ class StartServer extends Command
             ->addArgument('manifest', null, 'Path to manifest file.', 'sam.json');
     }
 
+    /**
+     * Выполнить команду
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @throws \RuntimeException
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
 
@@ -36,9 +42,15 @@ class StartServer extends Command
         throw new \RuntimeException('The HTTP server has stopped');
     }
 
+    /**
+     * Запустить сервер
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @param string $targetDirectory
+     * @return \Symfony\Component\Process\Process
+     */
     private function startWebServer(InputInterface $input, OutputInterface $output, $targetDirectory)
     {
-        $serverWorker = $targetDirectory . 'server.php';
         $manifestPath = getcwd() . '/' . $input->getArgument('manifest');
         $address      = '127.0.0.1:8652';
 

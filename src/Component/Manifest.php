@@ -36,13 +36,13 @@ class Manifest
 
     /**
      * Список css ассетов
-     * @var string
+     * @var array
      */
     protected $cssAssets;
     
     /**
      * Карта скомпилированных asset`ов
-     * @var Dmitrynaum\SAM\Component\AssetMap
+     * @var AssetMap
      */
     protected $resultMap;
 
@@ -71,7 +71,6 @@ class Manifest
         $this->assetBasePath = $json->assetBasePath;
         $this->resultMapPath = $json->resultMapPath;
 
-        $this->assetFiles = [];
         foreach ($json->assets as $assetName => $files) {
             $assetType = pathinfo($assetName, PATHINFO_EXTENSION);
 
@@ -88,7 +87,7 @@ class Manifest
 
     /**
      * Получить все js asset`ы которые необходимо собрать
-     * @return string[]
+     * @return array
      */
     public function getJsAssets()
     {
@@ -97,7 +96,7 @@ class Manifest
 
     /**
      * Получить все css asset`ы которые необходимо собрать
-     * @return string[]
+     * @return array
      */
     public function getCssAssets()
     {
@@ -106,7 +105,7 @@ class Manifest
 
     /**
      * Получить объект карты результатов билдинга
-     * @return \Dmitrynaum\SAM\Component\AssetMap
+     * @return AssetMap
      */
     public function resultMap()
     {

@@ -18,7 +18,7 @@ class AssetMap
     /**
      * Список скомпилированных ассетов
      * ['asset.name' => 'public-asset.file']
-     * @var string[]
+     * @var mixed|array
      */
     protected $assets;
     
@@ -29,7 +29,7 @@ class AssetMap
     protected $loaded;
 
     /**
-     * @param string$mapPath - Путь до файла с картой скомпилированных asset`ов
+     * @param string $mapPath - Путь до файла с картой скомпилированных asset`ов
      */
     public function __construct($mapPath)
     {

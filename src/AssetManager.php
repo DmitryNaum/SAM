@@ -170,7 +170,7 @@ class AssetManager
         
     /**
      * Получить ссылку на asset по его имени
-     * @param sring $assetName название asset`а
+     * @param string $assetName название asset`а
      * @return string
      */
     protected function getAssetUrl($assetName)

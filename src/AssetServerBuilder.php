@@ -11,7 +11,7 @@ class AssetServerBuilder extends AssetBuilder
 {
     /**
      * Путь до приложения
-     * @var type
+     * @var string
      */
     protected $appPath;
     
