@@ -6,6 +6,7 @@
 - Сжимать css и js (минифицировать)
 - Контролировать кэш браузера
 - Компилировать asset`ы на лету в Development окружении
+- Использовать удаленные js и css (например с CDN)
 
 ## Использование
 
@@ -30,6 +31,7 @@
     "resultMapPath" : "asset/map.json",
     "assets" : {
         "app.css" : [
+            "https:///maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css",
             "asset/css/first.css",
             "asset/css/second.css"
         ]
@@ -73,6 +75,19 @@ Dmitrynaum\SAM\Asset::useCss('app.Css');
 // Выводим asset на страницу
 echo Dmitrynaum\SAM\Asset::renderCss();
 ```
+
+Для использования удаленных js и css файлов Вы можете воспользоваться методами `Dmitrynaum\SAM\Asset::useRemoteJs()` и `Dmitrynaum\SAM\Asset::useRemoteCss()`.
+SAM не будет их нигде кэшировать, он просто обернет ссылки на ресурсы в соответствующие HTML теги
+```php
+<?php
+// ...
+Dmitrynaum\SAM\Asset::useRemoteJs('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js');
+Dmitrynaum\SAM\Asset::useRemoteCss('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
+// ...
+echo Dmitrynaum\SAM\Asset::renderCss();
+echo Dmitrynaum\SAM\Asset::renderJs();
+```
+
 ## Компиляция на лету
 Для удобной разработки в SAM\`е предусмотрена возможность компилировать asset\`ы на лету без лишних движений.
 
