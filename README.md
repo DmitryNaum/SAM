@@ -82,7 +82,7 @@ echo Dmitrynaum\SAM\Asset::renderCss();
 // Добавляем asset
 Dmitrynaum\SAM\Asset::useJs('app.js');
 // Выводим asset на страницу
-echo Dmitrynaum\SAM\Asset::renderCss(['defer']);
+echo Dmitrynaum\SAM\Asset::renderJs(['defer']);
 ```
 
 Для использования удаленных js и css файлов Вы можете воспользоваться методами `Dmitrynaum\SAM\Asset::useRemoteJs()` и `Dmitrynaum\SAM\Asset::useRemoteCss()`.
