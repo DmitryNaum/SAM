@@ -30,7 +30,7 @@ class Manifest
 
     /**
      * Список js ассетов
-     * @var string
+     * @var array
      */
     protected $jsAssets;
 
