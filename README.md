@@ -71,7 +71,7 @@ php vendor/bin/sam build my_sam.json -с -f
 ```php
 <?php
 // Добавляем asset
-Dmitrynaum\SAM\Asset::useCss('app.js');
+Dmitrynaum\SAM\Asset::useCss('app.css');
 // Выводим asset на страницу
 echo Dmitrynaum\SAM\Asset::renderCss();
 ```
