@@ -117,5 +117,23 @@ class AssetTest extends \PHPUnit_Framework_TestCase
         
         $this->assertRegExp("/type\=\'text\/javascript\'/", $jsTag);
     }
+    
+    public function testRenderInlineCss()
+    {
+        Asset::addInlineCss('.my-class{ width:100% }');
+        
+        $inlineCss = Asset::renderInlineCss();
+        
+        $this->assertEquals('<style>.my-class{ width:100% }</style>', $inlineCss);
+    }
+    
+    public function testRenderInlineJs()
+    {
+        Asset::addInlineJs('alert("test")');
+        
+        $inlineJs = Asset::renderInlineJs();
+        
+        $this->assertEquals('<script>alert("test")</script>', $inlineJs);
+    }
 
 }

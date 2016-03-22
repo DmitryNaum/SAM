@@ -157,4 +157,45 @@ class AssetManagerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertRegExp("/type\=\'text\/javascript\'/", $jsTags);
     }
+    
+     
+    public function testRenderInlineJs()
+    {
+        $assetManager = $this->getAssetManager();
+        $assetManager->addInlineJs("alert('test')");
+        $assetManager->addInlineJs("alert('test2')");
+
+        $inlineJs = $assetManager->renderInlineJs();
+        
+        $this->assertEquals("<script>alert('test');\nalert('test2')</script>", $inlineJs);
+    }
+    
+    public function testRenderInlineCss()
+    {
+        $assetManager = $this->getAssetManager();
+        $assetManager->addInlineCss(".my-class1{ width:100% }");
+        $assetManager->addInlineCss(".my-class2{ height:100% }");
+
+        $inlineCss = $assetManager->renderInlineCss();
+        
+        $this->assertEquals("<style>.my-class1{ width:100% }\n.my-class2{ height:100% }</style>", $inlineCss);
+    }
+    
+    public function testRenderInlineJs_NoJs()
+    {
+        $assetManager = $this->getAssetManager();
+
+        $inlineJs = $assetManager->renderInlineJs();
+        
+        $this->assertEmpty($inlineJs);
+    }
+    
+    public function testRenderInlineCss_noCss()
+    {
+        $assetManager = $this->getAssetManager();
+
+        $inlineCss = $assetManager->renderInlineCss();
+        
+        $this->assertEmpty($inlineCss);
+    }
 }

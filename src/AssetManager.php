@@ -22,6 +22,12 @@ class AssetManager
     protected $remoteJs = [];
 
     /**
+     * Список inline JS
+     * @var array
+     */
+    protected $inlineJs = [];
+    
+    /**
      * Список используемых Css asset`ов
      * @var string[]
      */
@@ -32,6 +38,12 @@ class AssetManager
      * @var string[]
      */
     protected $remoteCss = [];
+    
+    /**
+     * Список inline Css
+     * @var array
+     */
+    protected $inlineCss = [];
 
     /**
      * Карта asset`ов
@@ -122,6 +134,24 @@ class AssetManager
     {
         $this->remoteJs[] = $jsUrl;
     }
+    
+    /**
+     * Добавить inline css код
+     * @param string $css
+     */
+    public function addInlineCss($css)
+    {
+        $this->inlineCss[] = $css;
+    }
+    
+    /**
+     * Добавить inline JavaScript код
+     * @param string $js
+     */
+    public function addInlineJs($js)
+    {
+        $this->inlineJs[] = $js;
+    }
 
     /**
      * Получить html теги script с используемыми JavaScript asset`ами
@@ -166,6 +196,28 @@ class AssetManager
         }
 
         return $cssTags;
+    }
+    
+    /**
+     * Получить теги script с inline js или пустую строку если их нет
+     * @return string
+     */
+    public function renderInlineJs()
+    {
+        $jsCode = join(";\n", $this->inlineJs);
+        
+        return $jsCode ? "<script>{$jsCode}</script>" : '';
+    }
+    
+    /**
+     * Получить теги style с inline css или пустую строку если их нет
+     * @return string
+     */
+    public function renderInlineCss()
+    {
+        $cssCode = join("\n", $this->inlineCss);
+        
+        return $cssCode ? "<style>{$cssCode}</style>" : '';
     }
         
     /**

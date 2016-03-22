@@ -86,6 +86,24 @@ class Asset
     {
         static::assetManager()->useRemoteCss($cssUrl);
     }
+    
+    /**
+     * Добавить inline Css код
+     * @param string $js
+     */
+    public static function addInlineCss($css)
+    {
+        static::assetManager()->addInlineCss($css);
+    }
+    
+    /**
+     * Добавить inline JavaScript код
+     * @param string $js
+     */
+    public static function addInlineJs($js)
+    {
+        static::assetManager()->addInlineJs($js);
+    }
 
     /**
      * Получить html теги script используемых JavaScript asset`ов
@@ -108,6 +126,24 @@ class Asset
     public static function renderCss()
     {
         return static::assetManager()->renderCss();
+    }
+    
+    /**
+     * Получить теги style с inline css или пустую строку если их нет
+     * @return string
+     */
+    public static function renderInlineCss()
+    {
+        return static::assetManager()->renderInlineCss();
+    }
+    
+    /**
+     * Получить теги script с inline js или пустую строку если их нет
+     * @return string
+     */
+    public static function renderInlineJs()
+    {
+        return static::assetManager()->renderInlineJs();
     }
     
     /**
