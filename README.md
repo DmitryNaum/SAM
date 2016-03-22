@@ -16,14 +16,15 @@
 - Контролировать кэш браузера
 - Компилировать asset`ы на лету в Development окружении
 - Использовать удаленные js и css (например с CDN)
+- Работа с inline css и js
 
 ## Использование
 
 В корне проекта должен находится файл настроек `sam.json` в котором описаны все необходимые для SAM`а параметры
 ```json
 {
-    "assetBasePath" : "Базовая папка куда будут сохранены все asset\`ы. Должна быть доступна из web!",
-    "resultMapPath" : "Путь до карты скомпилированных asset\`ов ",
+    "assetBasePath" : "Базовая папка куда будут сохранены все asset`ы. Должна быть доступна из web!",
+    "resultMapPath" : "Путь до карты скомпилированных asset`ов ",
     "assets" : { 
         "Название файла в который будет сохранен скомпилированный asset (app.css) является названием asset`а " : [
             "Файл который будет объединен с другими и записан в app.css",
@@ -85,7 +86,7 @@ Dmitrynaum\SAM\Asset::useCss('app.css');
 echo Dmitrynaum\SAM\Asset::renderCss();
 ```
 
-Рендеринг с атрибутами
+### Рендеринг с атрибутами
 ```php
 <?php
 // Добавляем asset
@@ -94,6 +95,7 @@ Dmitrynaum\SAM\Asset::useJs('app.js');
 echo Dmitrynaum\SAM\Asset::renderJs(['defer']);
 ```
 
+### Удаленные ресурсы
 Для использования удаленных js и css файлов Вы можете воспользоваться методами `Dmitrynaum\SAM\Asset::useRemoteJs()` и `Dmitrynaum\SAM\Asset::useRemoteCss()`.
 SAM не будет их нигде кэшировать, он просто обернет ссылки на ресурсы в соответствующие HTML теги
 ```php
@@ -104,6 +106,28 @@ Dmitrynaum\SAM\Asset::useRemoteCss('https://maxcdn.bootstrapcdn.com/bootstrap/3.
 // ...
 echo Dmitrynaum\SAM\Asset::renderCss();
 echo Dmitrynaum\SAM\Asset::renderJs();
+```
+
+### inline css & js
+```php
+Dmitrynaum\SAM\Asset::addInlineJs('alert("hello")');
+Dmitrynaum\SAM\Asset::addInlineJs('alert("world")');
+Dmitrynaum\SAM\Asset::addInlineCss('body{color:green;}');
+Dmitrynaum\SAM\Asset::addInlineCss('h1{size:34px;}');
+
+echo Dmitrynaum\SAM\Asset::renderInlineCss();
+echo Dmitrynaum\SAM\Asset::renderInlineJs();
+
+/**
+* Результат работы
+*
+*<style>body{color:green;}
+*h1{size:34px;}</style>
+*
+*<script>alert("hello");
+*alert("world")</script>
+*/
+
 ```
 
 ## Компиляция на лету
@@ -125,7 +149,3 @@ php vendor/bin/sam start-server
 После чего все asset\`ы будут доступны по адресу `http://127.0.0.1:8652?asset=asset_name` и каждый раз при запросе необходимого asset\`а они будут компилироваться на лету.
 ### ВНИМАНИЕ!
 Не используйте встроенный сервер SAM\`а в Production окружении. Это не безопасно!
-
-# ToDo
-- [x] Добавить возможность собирать asset\`ы на лету в development окружении для простой разработки.
-- [x] Добавить возможность рендерить теги `javascript` с атрибутами `async` и `defer`
