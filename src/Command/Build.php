@@ -27,10 +27,10 @@ class Build extends Command
                 './sam.json'
             )
             ->addOption(
-                'compress',
-                'c',
+                'minify',
+                'm',
                 InputOption::VALUE_NONE,
-                'Compress assets'
+                'Minify assets'
             )
             ->addOption(
                 'freeze',
@@ -47,7 +47,7 @@ class Build extends Command
         
         $builder = new AssetBuilder($manifestFilePath);
 
-        if ($input->getOption('compress')) {
+        if ($input->getOption('minify')) {
             $builder->enableCompressor();
         }
         

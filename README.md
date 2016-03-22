@@ -61,7 +61,7 @@ php vendor/bin/sam build
 ```
 2. Компиляция с минификацией. Asset\`ы будут собраны и минифицированы
 ```
-php vendor/bin/sam build -c
+php vendor/bin/sam build -m
 ```
 3. Компиляция с заморозкой. Asset\`ы будут собраны и в название результирующих файлов будут добавлены их хэши. Это помогает избежать проблем с кэшем браузера
 ```
@@ -69,11 +69,11 @@ php vendor/bin/sam build -f
 ```
 4. Компиляция с минификацией и заморозкой.
  ```
-php vendor/bin/sam build -с -f
+php vendor/bin/sam build -m -f
 ```
 Также компилятору asset\`ов можно указать путь до `sam.json`.
 ```
-php vendor/bin/sam build my_sam.json -с -f
+php vendor/bin/sam build my_sam.json -m -f
 ```
 
 ## Рендеринг
