@@ -198,4 +198,74 @@ class AssetManagerTest extends \PHPUnit_Framework_TestCase
         
         $this->assertEmpty($inlineCss);
     }
+    
+    public function testGetUsedCss()
+    {
+        $assetManager = $this->getAssetManager();
+        $assetManager->useCss('some/asset.css');
+        
+        $usedAssets = $assetManager->getUsedCss();
+        
+        $this->assertEquals(['some/asset.css'], $usedAssets);
+    }
+    
+    public function testGetUsedJs()
+    {
+        $assetManager = $this->getAssetManager();
+        $assetManager->useJs('some/asset.js');
+        
+        $usedAssets = $assetManager->getUsedJs();
+        
+        $this->assertEquals(['some/asset.js'], $usedAssets);
+    }
+    
+    public function testRemoveCss()
+    {
+        $assetManager = $this->getAssetManager();
+        $assetManager->useCss('some/asset.css');
+        
+        $assetManager->removeCss('some/asset.css');
+        
+        $usedAssets = $assetManager->getUsedCss();
+        
+        $this->assertEmpty($usedAssets);
+    }
+    
+    public function testRemoveJs()
+    {
+        $assetManager = $this->getAssetManager();
+        $assetManager->useJs('some/asset.js');
+        
+        $assetManager->removeJs('some/asset.js');
+        
+        $usedAssets = $assetManager->getUsedJs();
+        
+        $this->assertEmpty($usedAssets);
+    }
+    
+    public function testRemoveAllJs()
+    {
+        $assetManager = $this->getAssetManager();
+        $assetManager->useJs('some/asset.js');
+        
+        $assetManager->removeAllJs();
+        
+        $usedAssets = $assetManager->getUsedJs();
+        
+        $this->assertEmpty($usedAssets);
+    }
+    
+    
+    public function testRemoveAllCss()
+    {
+        $assetManager = $this->getAssetManager();
+        $assetManager->useCss('some/asset.css');
+        
+        $assetManager->removeAllCss();
+        
+        $usedAssets = $assetManager->getUsedCss();
+        
+        $this->assertEmpty($usedAssets);
+    }
+    
 }

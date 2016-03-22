@@ -219,7 +219,45 @@ class AssetManager
         
         return $cssCode ? "<style>{$cssCode}</style>" : '';
     }
-        
+    
+    public function getUsedCss()
+    {
+        return $this->css;
+    }
+    
+    public function getUsedJs()
+    {
+        return $this->js;
+    }
+    
+    public function removeCss($cssAssetName)
+    {
+        foreach ($this->css as $index => $assetName) {
+            if ($assetName == $cssAssetName) {
+                unset($this->css[$index]);
+            }
+        }
+    }
+    
+    public function removeJs($jsAssetName)
+    {
+        foreach ($this->js as $index => $assetName) {
+            if ($assetName == $jsAssetName) {
+                unset($this->js[$index]);
+            }
+        }
+    }
+    
+    public function removeAllCss()
+    {
+        $this->css = [];
+    }
+    
+    public function removeAllJs()
+    {
+        $this->js = [];
+    }
+
     /**
      * Получить ссылку на asset по его имени
      * @param string $assetName название asset`а

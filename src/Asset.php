@@ -146,6 +146,37 @@ class Asset
         return static::assetManager()->renderInlineJs();
     }
     
+    public static function getUsedCss()
+    {
+        return static::assetManager()->getUsedCss();
+    }
+    
+    public static function getUsedJs()
+    {
+        return static::assetManager()->getUsedJs();
+    }
+
+    
+    public static function removeCss($cssAssetName)
+    {
+        static::assetManager()->removeCss($cssAssetName);
+    }
+    
+    public static function removeJs($jsAssetName)
+    {
+        static::assetManager()->removeJs($jsAssetName);
+    }
+    
+    public static function removeAlljs()
+    {
+        static::assetManager()->removeAllJs();
+    }
+    
+    public static function removeAllCss()
+    {
+        static::assetManager()->removeAllCss();
+    }
+
     /**
      * Получить AssetManager
      * @return AssetManager

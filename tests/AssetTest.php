@@ -42,6 +42,14 @@ class AssetTest extends \PHPUnit_Framework_TestCase
 
         Asset::$manifestFilePath = $manifestFilePath;
     }
+    
+    protected function setUp()
+    {
+        parent::setUp();
+        
+        Asset::removeAllCss();
+        Asset::removeAlljs();
+    }
 
     public function testGetJs()
     {
@@ -135,5 +143,67 @@ class AssetTest extends \PHPUnit_Framework_TestCase
         
         $this->assertEquals('<script>alert("test")</script>', $inlineJs);
     }
+    
+    public function testGetUsedCss()
+    {
+        Asset::useCss('some.css');
+        
+        $usedAssets = Asset::getUsedCss();
+        
+        $this->assertEquals(['some.css'], $usedAssets);
+    }
+    
+    public function testGetUsedJs()
+    {
+        Asset::useJs('some.js');
+        
+        $usedAssets = Asset::getUsedJs();
+        
+        $this->assertEquals(['some.js'], $usedAssets);
+    }
 
+    public function testRemoveCss()
+    {
+        Asset::useCss('some.css');
+        
+        Asset::removeCss('some.css');
+        
+        $usedAssets = Asset::getUsedCss();
+        
+        $this->assertEmpty($usedAssets);
+    }
+    
+    public function testRemoveJs()
+    {
+        Asset::useJs('some.js');
+        
+        Asset::removeJs('some.js');
+        
+        $usedAssets = Asset::getUsedJs();
+        
+        $this->assertEmpty($usedAssets);
+    }
+    
+    public function testRemoveAllJs()
+    {
+        Asset::useJs('some.js');
+        
+        Asset::removeAllJs();
+        
+        $usedAssets = Asset::getUsedJs();
+        
+        $this->assertEmpty($usedAssets);
+    }
+
+    
+    public function testRemoveAllCss()
+    {
+        Asset::useCss('some.js');
+        
+        Asset::removeAllCss();
+        
+        $usedAssets = Asset::getUsedCss();
+        
+        $this->assertEmpty($usedAssets);
+    }
 }
