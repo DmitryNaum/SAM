@@ -103,7 +103,9 @@ class AssetManager
      */
     public function useJs($assetName)
     {
-        $this->js[] = $assetName;
+        if (!in_array($assetName, $this->js)) {
+            $this->js[] = $assetName;
+        }
     }
 
     /**
@@ -112,7 +114,9 @@ class AssetManager
      */
     public function useCss($assetName)
     {
-        $this->css[] = $assetName;
+        if (!in_array($assetName, $this->css)) {
+            $this->css[] = $assetName;
+        }
     }
     
     /**

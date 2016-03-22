@@ -268,4 +268,26 @@ class AssetManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertEmpty($usedAssets);
     }
     
+    public function testUseCss_assetUsedTwice_returnOne()
+    {
+        $assetManager = $this->getAssetManager();
+        $assetManager->useCss('some/asset.css');
+        $assetManager->useCss('some/asset.css');
+        
+        $usedAssets = $assetManager->getUsedCss();
+        
+        $this->assertEquals(['some/asset.css'], $usedAssets);
+    }
+    
+    
+    public function testUseJs_assetUsedTwice_returnOne()
+    {
+        $assetManager = $this->getAssetManager();
+        $assetManager->useJs('some/asset.js');
+        $assetManager->useJs('some/asset.js');
+        
+        $usedAssets = $assetManager->getUsedJs();
+        
+        $this->assertEquals(['some/asset.js'], $usedAssets);
+    }
 }
