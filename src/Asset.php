@@ -89,7 +89,7 @@ class Asset
     
     /**
      * Добавить inline Css код
-     * @param string $js
+     * @param string $css
      */
     public static function addInlineCss($css)
     {
@@ -146,32 +146,53 @@ class Asset
         return static::assetManager()->renderInlineJs();
     }
     
+    /**
+     * Получить используемые css ассеты
+     * @return array
+     */
     public static function getUsedCss()
     {
         return static::assetManager()->getUsedCss();
     }
     
+    /**
+     * Получить используемые js asset`ы
+     * @return array
+     */
     public static function getUsedJs()
     {
         return static::assetManager()->getUsedJs();
     }
 
-    
+    /**
+     * Удалить используемый css asset по его имени
+     * @param string $cssAssetName
+     */
     public static function removeCss($cssAssetName)
     {
         static::assetManager()->removeCss($cssAssetName);
     }
     
+    /**
+     * Удалить используемый js asset по его имени
+     * @param string $jsAssetName
+     */
     public static function removeJs($jsAssetName)
     {
         static::assetManager()->removeJs($jsAssetName);
     }
     
+    /**
+     * Удалить все используемые js asset`ы
+     */
     public static function removeAlljs()
     {
         static::assetManager()->removeAllJs();
     }
     
+    /**
+     * Удалить все используемые css asset`ы
+     */
     public static function removeAllCss()
     {
         static::assetManager()->removeAllCss();

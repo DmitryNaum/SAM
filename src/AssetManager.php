@@ -224,16 +224,28 @@ class AssetManager
         return $cssCode ? "<style>{$cssCode}</style>" : '';
     }
     
+    /**
+     * Получить используемые css ассеты
+     * @return array
+     */
     public function getUsedCss()
     {
         return $this->css;
     }
     
+    /**
+     * Получить используемые js asset`ы
+     * @return array
+     */
     public function getUsedJs()
     {
         return $this->js;
     }
     
+    /**
+     * Удалить используемый css asset по его имени
+     * @param string $cssAssetName
+     */
     public function removeCss($cssAssetName)
     {
         foreach ($this->css as $index => $assetName) {
@@ -243,6 +255,10 @@ class AssetManager
         }
     }
     
+    /**
+     * Удалить используемый js asset по его имени
+     * @param string $jsAssetName
+     */
     public function removeJs($jsAssetName)
     {
         foreach ($this->js as $index => $assetName) {
@@ -252,11 +268,17 @@ class AssetManager
         }
     }
     
+    /**
+     * Удалить все используемые css asset`ы
+     */
     public function removeAllCss()
     {
         $this->css = [];
     }
     
+    /**
+     * Удалить все используемые js asset`ы
+     */
     public function removeAllJs()
     {
         $this->js = [];
