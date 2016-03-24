@@ -45,6 +45,13 @@ class Manifest
      * @var AssetMap
      */
     protected $resultMap;
+    
+    /**
+     * Адрес по которому распологается сервер
+     * для билдинга ассетов в реальном времени
+     * @var string
+     */
+    protected $serverAddress;
 
     /**
      * @param string $filePath - путь до файла sam.json
@@ -70,6 +77,7 @@ class Manifest
         // Заполняем свойства
         $this->assetBasePath = $json->assetBasePath;
         $this->resultMapPath = $json->resultMapPath;
+        $this->serverAddress = $json->devServerAddress;
 
         foreach ($json->assets as $assetName => $files) {
             $assetType = pathinfo($assetName, PATHINFO_EXTENSION);
@@ -122,5 +130,10 @@ class Manifest
     public function getAssetBasePath()
     {
         return $this->assetBasePath;
+    }
+    
+    public function getServerAddress()
+    {
+        return $this->serverAddress;
     }
 }

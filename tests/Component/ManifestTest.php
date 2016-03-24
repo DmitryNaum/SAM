@@ -28,9 +28,10 @@ class ManifestTest extends \PHPUnit_Framework_TestCase
         vfsStreamWrapper::setRoot($rootDir);
 
         $manifest = [
-            'assetBasePath' => 'vfs://asset/build',
-            'resultMapPath' => 'vfs://asset/map.json',
-            'assets'        => $assets,
+            'devServerAddress' => "127.0.0.1:8080",
+            'assetBasePath'    => 'vfs://asset/build',
+            'resultMapPath'    => 'vfs://asset/map.json',
+            'assets'           => $assets,
         ];
 
         file_put_contents('vfs://asset/sam.json', json_encode($manifest));

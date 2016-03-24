@@ -34,10 +34,10 @@ class AssetManager
     protected $inlineCss = [];
 
     /**
-     * Карта asset`ов
-     * @var Component\AssetMap
+     * Манифест
+     * @var Component\Manifest
      */
-    protected $map;
+    protected $manifest;
 
     /**
      * Режим разработки
@@ -46,19 +46,14 @@ class AssetManager
     protected $developmentMode;
     
     /**
-     * Host на котором висит dev сервер
-     * @var string
+     * @param \Dmitrynaum\SAM\Component\AssetMap $manifest - Карта asset`ов
      */
-    protected $developmentHost = 'http://127.0.0.1:8652/';
-
-    /**
-     * @param \Dmitrynaum\SAM\Component\AssetMap $map - Карта asset`ов
-     */
-    public function __construct(Component\AssetMap $map)
+    public function __construct(Component\Manifest $manifest)
     {
-        $this->map             = $map;
+        $this->manifest        = $manifest;
         $this->developmentMode = false;
     }
+    
     
     /**
      * Включить режим разработки
@@ -250,9 +245,9 @@ class AssetManager
     protected function getAssetUrl($assetName)
     {
         if ($this->isDevelopmentModeEnabled()) {
-            $assetUrl = "{$this->developmentHost}?asset=$assetName";
+            $assetUrl = "//{$this->manifest->getServerAddress()}/?asset=$assetName";
         } else {
-            $assetUrl = $this->map->getAssetPath($assetName);
+            $assetUrl = $this->manifest->resultMap()->getAssetPath($assetName);
         }
         
         return $assetUrl;

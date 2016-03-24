@@ -2,10 +2,11 @@
 
 namespace Dmitrynaum\SAM\Test;
 
-use org\bovigo\vfs\vfsStream;
 use Dmitrynaum\SAM\AssetManager;
-use org\bovigo\vfs\vfsStreamWrapper;
 use Dmitrynaum\SAM\Component\AssetMap;
+use Dmitrynaum\SAM\Component\Manifest;
+use org\bovigo\vfs\vfsStream;
+use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 
 /**
@@ -25,16 +26,28 @@ class AssetManagerTest extends \PHPUnit_Framework_TestCase
 
     protected function getAssetManager()
     {
+        
+        $manifestFilePath = 'vfs://asset/sam.json';
+        $mapPath          = 'vfs://asset/map.json';
+
+        $manifestData = [
+            "devServerAddress" => "127.0.0.1:8652",
+            'assetBasePath'    => 'vfs://asset/build',
+            'resultMapPath'    => $mapPath,
+            'assets'           => []
+        ];
+        
         $assets = [
             'some/asset.js'  => '/assets/some/asset.js',
             'some/asset.css' => '/assets/some/asset.css',
         ];
 
-        file_put_contents('vfs://asset/map.json', json_encode($assets));
+        file_put_contents($mapPath, json_encode($assets));
+        file_put_contents($manifestFilePath, json_encode($manifestData));
+        
+        $manifest = new Manifest($manifestFilePath);
 
-        $map = new AssetMap('vfs://asset/map.json');
-
-        return new AssetManager($map);
+        return new AssetManager($manifest);
     }
 
     public function testRenderJs()
@@ -143,7 +156,7 @@ class AssetManagerTest extends \PHPUnit_Framework_TestCase
         
         $jsTags = $assetManager->renderJs();
         
-        $this->assertContains('http://127.0.0.1:8652/?asset=some/asset.js', $jsTags);
+        $this->assertContains('//127.0.0.1:8652/?asset=some/asset.js', $jsTags);
     }
 
     public function testRenderCss_enabledDevelopmentMode()
@@ -155,7 +168,7 @@ class AssetManagerTest extends \PHPUnit_Framework_TestCase
         
         $cssTags = $assetManager->renderCss();
         
-        $this->assertContains('http://127.0.0.1:8652/?asset=some/asset.css', $cssTags);
+        $this->assertContains('//127.0.0.1:8652/?asset=some/asset.css', $cssTags);
     }
     
     public function testRenderJs_withDeferAttribute()

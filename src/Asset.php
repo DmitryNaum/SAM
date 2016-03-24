@@ -186,7 +186,7 @@ class Asset
     {
         if (!static::$assetManager) {
             $manifest              = new Manifest(static::$manifestFilePath);
-            static::$assetManager  = new AssetManager($manifest->resultMap());
+            static::$assetManager  = new AssetManager($manifest);
         }
         
         return static::$assetManager;

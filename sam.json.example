@@ -1,4 +1,5 @@
 {
+    "devServerAddress" : "127.0.0.1:8090",
     "assetBasePath" : "build/asset/",
     "resultMapPath" : "build/asset/map.json",
     "assets" : {

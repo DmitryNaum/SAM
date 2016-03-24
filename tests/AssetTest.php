@@ -27,9 +27,10 @@ class AssetTest extends \PHPUnit_Framework_TestCase
         $mapPath          = 'vfs://asset/map.json';
 
         $manifest = [
-            'assetBasePath' => 'vfs://asset/build',
-            'resultMapPath' => $mapPath,
-            'assets'        => []
+            'devServerAddress' => "127.0.0.1:8080",
+            'assetBasePath'    => 'vfs://asset/build',
+            'resultMapPath'    => $mapPath,
+            'assets'           => []
         ];
         
         $map = [

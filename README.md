@@ -28,6 +28,7 @@ composer require dmitrynaum/sam
 В корне проекта должен находится файл настроек `sam.json` в котором описаны все необходимые для SAM`а параметры
 ```json
 {
+    "devServerAddress" : "Адрес сервера на котором работает сервер компиляции ассетов на лету",
     "assetBasePath" : "Базовая папка куда будут сохранены все asset`ы. Должна быть доступна из web!",
     "resultMapPath" : "Путь до карты скомпилированных asset`ов ",
     "assets" : { 
@@ -42,6 +43,7 @@ composer require dmitrynaum/sam
 Пример `sam.json`
 ```json
 {
+    "devServerAddress" : "127.0.0.1:8090",
     "assetBasePath" : "public/build/",
     "resultMapPath" : "asset/map.json",
     "assets" : {
@@ -151,6 +153,6 @@ if (App::isDevelopment()) {
 php vendor/bin/sam start-server
 ```
 
-После чего все asset\`ы будут доступны по адресу `http://127.0.0.1:8652?asset=asset_name` и каждый раз при запросе необходимого asset\`а они будут компилироваться на лету.
+После чего все asset\`ы будут доступны по адресу `http://127.0.0.1:8090?asset=asset_name` и каждый раз при запросе необходимого asset\`а они будут компилироваться на лету.
 ### ВНИМАНИЕ!
 Не используйте встроенный сервер SAM\`а в Production окружении. Это не безопасно!

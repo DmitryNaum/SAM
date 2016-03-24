@@ -52,8 +52,10 @@ class StartServer extends Command
     private function startWebServer(InputInterface $input, OutputInterface $output, $targetDirectory)
     {
         $manifestPath = getcwd() . '/' . $input->getArgument('manifest');
-        $address      = '127.0.0.1:8652';
-
+        
+        $manifest = new \Dmitrynaum\SAM\Component\Manifest($manifestPath);
+        $address  = $manifest->getServerAddress();
+        
         $builder = new ProcessBuilder([PHP_BINARY, '-S', $address, 'server.php']);
         
         $builder->setWorkingDirectory($targetDirectory);
