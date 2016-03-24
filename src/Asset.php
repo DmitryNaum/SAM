@@ -50,41 +50,21 @@ class Asset
     }
 
     /**
-     * Использовать JavaScript Asset
-     * @param string $assetName - имя ассета
+     * Использовать JavaScript Asset или js по его url
+     * @param string $assetNameOrUrl - имя asset`а или url
      */
-    public static function useJs($assetName)
+    public static function useJs($assetNameOrUrl)
     {
-        static::assetManager()->useJs($assetName);
+        static::assetManager()->useJs($assetNameOrUrl);
     }
 
     /**
-     * Использовать CSS Asset
-     * @param string $assetName - имя ассета
+     * Использовать CSS Asset или CSS по его url
+     * @param string $assetNameOrUrl - имя asset`а или url
      */
-    public static function useCss($assetName)
+    public static function useCss($assetNameOrUrl)
     {
-        static::assetManager()->useCss($assetName);
-    }
-    
-    /**
-     * Использовать удаленный js.
-     * Ссылка просто оборачивается в тег script
-     * @param string $jsUrl Ссылка на js файл
-     */
-    public static function useRemoteJs($jsUrl)
-    {
-        static::assetManager()->useRemoteJs($jsUrl);
-    }
-
-    /**
-     * Использовать удаленный css.
-     * Ссылка просто оборачивается в тег link
-     * @param string $cssUrl Ссылка на css файл
-     */
-    public static function useRemoteCss($cssUrl)
-    {
-        static::assetManager()->useRemoteCss($cssUrl);
+        static::assetManager()->useCss($assetNameOrUrl);
     }
     
     /**
@@ -165,21 +145,21 @@ class Asset
     }
 
     /**
-     * Удалить используемый css asset по его имени
-     * @param string $cssAssetName
+     * Удалить используемый css asset по его названию или url
+     * @param string $cssAssetNameOrUrl - название asset`а или url
      */
-    public static function removeCss($cssAssetName)
+    public static function removeCss($cssAssetNameOrUrl)
     {
-        static::assetManager()->removeCss($cssAssetName);
+        static::assetManager()->removeCss($cssAssetNameOrUrl);
     }
     
     /**
-     * Удалить используемый js asset по его имени
-     * @param string $jsAssetName
+     * Удалить используемый js asset по его названию или url
+     * @param string $jsAssetNameOrUrl название asset`а или url
      */
-    public static function removeJs($jsAssetName)
+    public static function removeJs($jsAssetNameOrUrl)
     {
-        static::assetManager()->removeJs($jsAssetName);
+        static::assetManager()->removeJs($jsAssetNameOrUrl);
     }
     
     /**

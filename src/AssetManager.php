@@ -16,12 +16,6 @@ class AssetManager
     protected $js = [];
     
     /**
-     * Список ссылок на удаленные JavaScript файлы
-     * @var string[]
-     */
-    protected $remoteJs = [];
-
-    /**
      * Список inline JS
      * @var array
      */
@@ -32,13 +26,7 @@ class AssetManager
      * @var string[]
      */
     protected $css = [];
-    
-    /**
-     * Список ссылок на удаленные css файлы
-     * @var string[]
-     */
-    protected $remoteCss = [];
-    
+        
     /**
      * Список inline Css
      * @var array
@@ -98,45 +86,25 @@ class AssetManager
     }
 
     /**
-     * Использовать JavaScript Asset
-     * @param string $assetName - имя ассета
+     * Использовать JavaScript по названию asset`а или url
+     * @param string $assetNameOrUrl - имя ассета
      */
-    public function useJs($assetName)
+    public function useJs($assetNameOrUrl)
     {
-        if (!in_array($assetName, $this->js)) {
-            $this->js[] = $assetName;
+        if (!in_array($assetNameOrUrl, $this->js)) {
+            $this->js[] = $assetNameOrUrl;
         }
     }
 
     /**
-     * Использовать CSS Asset
-     * @param string $assetName - Имя ассета
+     * Использовать CSS по названию asset`а или url
+     * @param string $assetNameOrUrl - Имя ассета
      */
-    public function useCss($assetName)
+    public function useCss($assetNameOrUrl)
     {
-        if (!in_array($assetName, $this->css)) {
-            $this->css[] = $assetName;
+        if (!in_array($assetNameOrUrl, $this->css)) {
+            $this->css[] = $assetNameOrUrl;
         }
-    }
-    
-    /**
-     * Использовать удаленный css.
-     * Ссылка просто оборачивается в тег link
-     * @param string $cssUrl Ссылка на css файл
-     */
-    public function useRemoteCss($cssUrl)
-    {
-        $this->remoteCss[] = $cssUrl;
-    }
-    
-    /**
-     * Использовать удаленный js.
-     * Ссылка просто оборачивается в тег script
-     * @param string $jsUrl Ссылка на js файл
-     */
-    public function useRemoteJs($jsUrl)
-    {
-        $this->remoteJs[] = $jsUrl;
     }
     
     /**
@@ -160,19 +128,13 @@ class AssetManager
     /**
      * Получить html теги script с используемыми JavaScript asset`ами
      * @param array $attributes Массив атрибутов тега
-     * ['Имя атрибута' => 'значение']
      * ['type' => 'text/javascript']
-     * ['атрибут']
      * ['async', 'defer']
      * @return string
      */
     public function renderJs(array $attributes = [])
     {
-        $jsUrls = $this->remoteJs;
-        
-        foreach ($this->js as $assetName) {
-            $jsUrls[] = $this->getAssetUrl($assetName);
-        }
+        $jsUrls = $this->getUrls($this->js);
         
         $jsTags = '';
         foreach ($jsUrls as $jsUrl) {
@@ -188,11 +150,7 @@ class AssetManager
      */
     public function renderCss()
     {
-        $cssUrls = $this->remoteCss;
-        
-        foreach ($this->css as $assetName) {
-            $cssUrls[] = $this->getAssetUrl($assetName);
-        }
+        $cssUrls = $this->getUrls($this->css);
         
         $cssTags = '';
         foreach ($cssUrls as $cssUrl) {
@@ -225,7 +183,7 @@ class AssetManager
     }
     
     /**
-     * Получить используемые css ассеты
+     * Получить используемые css ассеты и url
      * @return array
      */
     public function getUsedCss()
@@ -234,7 +192,7 @@ class AssetManager
     }
     
     /**
-     * Получить используемые js asset`ы
+     * Получить используемые js asset`ы и url
      * @return array
      */
     public function getUsedJs()
@@ -243,26 +201,26 @@ class AssetManager
     }
     
     /**
-     * Удалить используемый css asset по его имени
-     * @param string $cssAssetName
+     * Удалить используемый css по названию asset`а или url
+     * @param string $cssAssetNameOrUrl
      */
-    public function removeCss($cssAssetName)
+    public function removeCss($cssAssetNameOrUrl)
     {
         foreach ($this->css as $index => $assetName) {
-            if ($assetName == $cssAssetName) {
+            if ($assetName == $cssAssetNameOrUrl) {
                 unset($this->css[$index]);
             }
         }
     }
     
     /**
-     * Удалить используемый js asset по его имени
-     * @param string $jsAssetName
+     * Удалить используемый js по названию asset`а или url
+     * @param string $jsAssetNameOrUrl
      */
-    public function removeJs($jsAssetName)
+    public function removeJs($jsAssetNameOrUrl)
     {
         foreach ($this->js as $index => $assetName) {
-            if ($assetName == $jsAssetName) {
+            if ($assetName == $jsAssetNameOrUrl) {
                 unset($this->js[$index]);
             }
         }
@@ -302,15 +260,13 @@ class AssetManager
     
     /**
      * Обернуть ссылку на JS файл в тег script
-     * @param string $pathToJsFile
+     * @param string $pathToJs
      * @param array $attributes Массив атрибутов тега
      * ['Имя атрибута' => 'значение']
-     * ['type' => 'text/javascript']
      * ['атрибут']
-     * ['async', 'defer']
      * @return string
      */
-    protected function wrapJsLink($pathToJsFile, array $attributes = [])
+    protected function wrapJsLink($pathToJs, array $attributes = [])
     {
         
         $attrs = [];
@@ -323,16 +279,48 @@ class AssetManager
         }
         
         $attributesString = join(' ', $attrs);
-        return "<script src='{$pathToJsFile}' {$attributesString}></script>";
+        return "<script src='{$pathToJs}' {$attributesString}></script>";
     }
     
     /**
      * Обернуть ссылку на Css файл в тег script
-     * @param string $pathToCssFile
+     * @param string $pathToCss
      * @return string
      */
-    protected function wrapCssLink($pathToCssFile)
+    protected function wrapCssLink($pathToCss)
     {
-        return "<link rel='stylesheet' type='text/css' href='{$pathToCssFile}' />";
+        return "<link rel='stylesheet' type='text/css' href='{$pathToCss}' />";
+    }
+    
+    /**
+     * Проверяет является ли ссылка URL
+     * @param string $string
+     * @return bool
+     */
+    protected function isUrl($string)
+    {
+        if (strpos($string, '//') === 0) {
+            $string = "http:{$string}";
+        }
+        
+        return filter_var($string, FILTER_VALIDATE_URL) !== false;
+    }
+    
+    /**
+     * Получить ссылки
+     * @param array $array
+     */
+    protected function getUrls($array)
+    {
+        $urls = [];
+        foreach ($array as $assetNameOrUrl) {
+            if ($this->isUrl($assetNameOrUrl)) {
+                $urls[] = $assetNameOrUrl;
+            } else {
+                $urls[] = $this->getAssetUrl($assetNameOrUrl);
+            }
+        }
+        
+        return $urls;
     }
 }

@@ -18,6 +18,11 @@
 - Использовать удаленные js и css (например с CDN)
 - Работа с inline css и js
 
+## Установка
+```
+composer require dmitrynaum/sam
+```
+
 ## Использование
 
 В корне проекта должен находится файл настроек `sam.json` в котором описаны все необходимые для SAM`а параметры
@@ -101,8 +106,8 @@ SAM не будет их нигде кэшировать, он просто об
 ```php
 <?php
 // ...
-Dmitrynaum\SAM\Asset::useRemoteJs('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js');
-Dmitrynaum\SAM\Asset::useRemoteCss('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
+Dmitrynaum\SAM\Asset::useJs('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js');
+Dmitrynaum\SAM\Asset::useCss('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
 // ...
 echo Dmitrynaum\SAM\Asset::renderCss();
 echo Dmitrynaum\SAM\Asset::renderJs();

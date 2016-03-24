@@ -68,24 +68,44 @@ class AssetManagerTest extends \PHPUnit_Framework_TestCase
         $jsTags = $assetManager->renderJs();
     }
     
-    public function testUseRemoteJs()
+    public function testUseJs_byUrlWithSchema()
     {
         $assetManager = $this->getAssetManager();
         
-        $assetManager->useRemoteJs('http://some.host/some.js');
+        $assetManager->useJs('http://some.host/some.js');
         
         $jsTags = $assetManager->renderJs();
         $this->assertContains('http://some.host/some.js', $jsTags);
     }
     
-    public function testUseRemoteCss()
+    public function testUseJs_byUrlWithoutSchema()
     {
         $assetManager = $this->getAssetManager();
         
-        $assetManager->useRemoteCss('http://some.host/some.css');
+        $assetManager->useJs('//some.host/some.js');
+        
+        $jsTags = $assetManager->renderJs();
+        $this->assertContains('//some.host/some.js', $jsTags);
+    }
+    
+    public function testUseCss_byUrlWithSchema()
+    {
+        $assetManager = $this->getAssetManager();
+        
+        $assetManager->useCss('http://some.host/some.css');
         
         $cssTags = $assetManager->renderCss();
         $this->assertContains('http://some.host/some.css', $cssTags);
+    }
+    
+    public function testUseCss_byUrlWithoutSchema()
+    {
+        $assetManager = $this->getAssetManager();
+        
+        $assetManager->useCss('//some.host/some.css');
+        
+        $cssTags = $assetManager->renderCss();
+        $this->assertContains('//some.host/some.css', $cssTags);
     }
     
     public function testIsDevelopmentModeEnabled()
