@@ -33,8 +33,8 @@ class AssetMap
      */
     public function __construct($mapPath)
     {
-        $this->mapPath       = $mapPath;
-        $this->assets        = [];
+        $this->mapPath = $mapPath;
+        $this->assets  = [];
     }
 
     /**
@@ -83,6 +83,6 @@ class AssetMap
     {
         $json = file_get_contents($this->mapPath);
         
-        $this->assets = json_decode($json, true);
+        $this->assets = array_merge($this->assets, json_decode($json, true));
     }
 }
