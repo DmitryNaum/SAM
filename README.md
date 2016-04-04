@@ -49,8 +49,13 @@ composer require dmitrynaum/sam
     "assets" : {
         "app.css" : [
             "https:///maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css",
+            "jquery-ui.css",
             "asset/css/first.css",
             "asset/css/second.css"
+        ],
+        "jquery-ui.css" : [
+            "asset/vendor/jquery-ui/jquery-ui.css",
+            "asset/vendor/jquery-ui/skin.css"
         ]
     }
     

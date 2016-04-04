@@ -45,7 +45,17 @@ class AssetBuilderTest extends \PHPUnit_Framework_TestCase
                 "app.js"  => [
                     "vfs://asset/first.js",
                     "vfs://asset/second.js"
-                ]
+                ],
+                "jquery.js" => [
+                    "vfs://asset/jquery.js"
+                ],
+                "app-jq.js" => [
+                    "app.js",
+                    "jquery.js"
+                ],
+                "deep-extending.js" => [
+                    "app-jq.js"
+                ],
             ]
         ];
 
@@ -53,6 +63,7 @@ class AssetBuilderTest extends \PHPUnit_Framework_TestCase
 
         file_put_contents('vfs://asset/first.js', 'var a=3;');
         file_put_contents('vfs://asset/second.js', 'var b=4;');
+        file_put_contents('vfs://asset/jquery.js', '$(){}');
         file_put_contents('vfs://asset/first.css', '.one{border:none;}');
         file_put_contents('vfs://asset/second.css', '.two{border:none;}');
 
@@ -145,8 +156,11 @@ class AssetBuilderTest extends \PHPUnit_Framework_TestCase
         $filesIntoBuildDir = [
             '.',
             '..',
+            'app-jq.js',
             'app.css',
             'app.js',
+            'deep-extending.js',
+            'jquery.js',
         ];
 
         $this->assertEquals($filesIntoBuildDir, scandir($this->assetBasePath));
@@ -176,6 +190,20 @@ class AssetBuilderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertContains('var a=3;', $jsContent);
         $this->assertContains('var b=4;', $jsContent);
+    }
+    
+    
+    public function testBuild_assetExtending()
+    {
+        $builder = $this->makeBuilder();
+        
+        $builder->build();
+        
+        $assetContent = file_get_contents('vfs://asset/build/app-jq.js');
+        
+        $this->assertContains('var a=3;', $assetContent);
+        $this->assertContains('var b=4;', $assetContent);
+        $this->assertContains('$(){}', $assetContent);
     }
 
 }

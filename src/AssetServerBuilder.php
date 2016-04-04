@@ -3,7 +3,7 @@
 namespace Dmitrynaum\SAM;
 
 /**
- * Description of ServerBuilder
+ * Построитель asset`ов для realtime сервера
  *
  * @author Naumov Dmitry <naym333@gmail.com>
  */
@@ -40,14 +40,9 @@ class AssetServerBuilder extends AssetBuilder
         if (!isset($assets[$assetName])) {
             throw new \Exception('Asset not found', 404);
         }
-        
-        $asset = $assets[$assetName];
-        
-        $assetFiles = [];
-        foreach ($asset as $assetFile) {
-            $assetFiles[] = realpath("{$this->appPath}/{$assetFile}");
-        }
-        $assetData = $this->readFiles($assetFiles);
+                
+        $assetsFiles = $this->getFilesPaths($assets);
+        $assetData   = $this->readFiles($assetsFiles[$assetName]);
         
         return $assetData;
     }

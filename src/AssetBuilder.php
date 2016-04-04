@@ -155,8 +155,11 @@ class AssetBuilder
      */
     protected function buildAssets($assets)
     {
+        // Получаем карту ассетов [имя_ассета => [список файлов]]
+        $assetsPaths = $this->getFilesPaths($assets);
+        
         // Обходим все asset`ы
-        foreach ($assets as $assetName => $assetFiles) {
+        foreach ($assetsPaths as $assetName => $assetFiles) {
             // Считываем содержимое файлов которые необходимо объежинить в asset
             $assetContent = $this->readFiles($assetFiles);
 
@@ -188,6 +191,46 @@ class AssetBuilder
             // Добавляем путь до asset файла в карту asset`ов
             $this->resultMap()->addAsset($assetName, $assetPath);
         }
+    }
+    
+    /**
+     * Получить список asset`ов и файлы которые в них используются
+     * @param array $assets
+     * @return array список файлов используемых в ассетах
+     */
+    protected function getFilesPaths($assets)
+    {
+        $assetFilePaths = [];
+        foreach ($assets as $assetName => $assetFiles) {
+            $assetFilePaths[$assetName] = $this->resolveAssetFilesPaths($assets, $assetFiles);
+        }
+        
+        return $assetFilePaths;
+    }
+    
+    /**
+     * Получить список файлов ассета
+     * @param array $assets
+     * @param array $assetFiles
+     * @return array
+     */
+    protected function resolveAssetFilesPaths($assets, $assetFiles)
+    {
+        $assetFilePaths = [];
+        // Обходим все файлы
+        foreach ($assetFiles as $assetNameOrFile) {
+            // Если в списке ассетов есть ассет с именем $assetNameOrFile
+            if (isset($assets[$assetNameOrFile])) {
+                // это имя ассета файлы которого необходимо использовать
+                $assetFiles     = $assets[$assetNameOrFile];
+                $assetFilePaths = array_merge($assetFilePaths, $this->resolveAssetFilesPaths($assets, $assetFiles));
+            } else {
+                // это путь до файла который необходимо использовать
+                $assetFilePaths[] = $assetNameOrFile;
+            }
+        }
+
+        return $assetFilePaths;
     }
 
     /**
