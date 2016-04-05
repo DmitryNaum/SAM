@@ -46,4 +46,24 @@ class AssetServerBuilder extends AssetBuilder
         
         return $assetData;
     }
+    
+    /**
+     * Получить список asset`ов и файлы которые в них используются
+     * @param array $assets
+     * @return array список файлов используемых в ассетах
+     */
+    protected function getFilesPaths($assets)
+    {
+        $assetFilePaths = [];
+        foreach ($assets as $assetName => $assetFiles) {
+            $filePaths = [];
+            foreach ($this->resolveAssetFilesPaths($assets, $assetFiles) as $filePath) {
+                $filePaths[] = $this->appPath.$filePath;
+            }
+            
+            $assetFilePaths[$assetName] = $filePaths;
+        }
+        
+        return $assetFilePaths;
+    }
 }
