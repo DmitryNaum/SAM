@@ -164,7 +164,7 @@ class AssetBuilder
             $assetContent = $this->readFiles($assetFiles);
 
             // Вычисляем путь до файла куда будет сохранен asset
-            $assetPath    = $this->manifest()->getAssetBasePath() . '/' . $assetName;
+            $assetPath = $this->manifest()->getAssetBasePath() . '/' . $assetName;
             
             // Если необходимо сжать asset`ы
             if ($this->isCompressorEnabled()) {
@@ -186,11 +186,27 @@ class AssetBuilder
             }
             
             // Сохраняем asset
-            file_put_contents($assetPath, $assetContent);
+            $this->saveAsset($assetPath, $assetContent);
 
             // Добавляем путь до asset файла в карту asset`ов
             $this->resultMap()->addAsset($assetName, $assetPath);
         }
+    }
+    
+    /**
+     * Сохранить ассет в файл
+     * @param string $assetPath путь до файла
+     * @param string $content контент
+     */
+    protected function saveAsset($assetPath, $content)
+    {
+        $dirName = dirname($assetPath);
+        
+        if (!is_dir($dirName)) {
+            mkdir($dirName, 0777, true);
+        }
+        
+        file_put_contents($assetPath, $content);
     }
     
     /**
