@@ -23,4 +23,16 @@ try{
     }
 }
 
+$assetType   = pathinfo($assetName, PATHINFO_EXTENSION);
+$contentType = '';
+switch ($fileExtension) {
+    case 'js':
+        $contentType = 'application/javascript';
+        break;
+    case 'css':
+        $contentType = 'text/css;charset=UTF-8';
+        break;
+}
+
+header("Content-Type:{$contentType}");
 echo $content;
