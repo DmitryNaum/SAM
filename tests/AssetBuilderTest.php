@@ -36,7 +36,8 @@ class AssetBuilderTest extends \PHPUnit_Framework_TestCase
         $manifest = [
             'devServerAddress' => "127.0.0.1:8080",
             'assetBasePath' => $this->assetBasePath,
-            'resultMapPath' => 'vfs://asset/map.json',
+            'rootDir'       => '',
+            'resultMapPath' => 'map.json',
             'assets'        => [
                 "app.css" => [
                     "vfs://asset/first.css",

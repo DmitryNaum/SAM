@@ -37,7 +37,7 @@ class AssetBuilder
      * @var string
      */
     protected $manifestFilePath;
-
+    
     /**
      * @param string $manifestFilePath - Путь до файла sam.json
      */
@@ -112,8 +112,8 @@ class AssetBuilder
      */
     protected function clearAssetDirectory()
     {
-        // Получаем путь до папки с скомпилированными asset`ами
-        $assetBasePath = $this->manifest()->getAssetBasePath();
+        // Получаем путь до папки с скомпилированными asset`ами относительно корня проекта
+        $assetBasePath = $this->manifest()->getAssetBasePathFromProjectRoot();
         
         // Получием список всех вложенных папок и объектов
         $dirIterator   = new RecursiveDirectoryIterator($assetBasePath, RecursiveDirectoryIterator::SKIP_DOTS);
@@ -164,7 +164,8 @@ class AssetBuilder
             $assetContent = $this->readFiles($assetFiles);
 
             // Вычисляем путь до файла куда будет сохранен asset
-            $assetPath = $this->manifest()->getAssetBasePath() . '/' . $assetName;
+            $assetSavePath = $this->manifest()->getAssetBasePathFromProjectRoot() . '/' . $assetName;
+            $assetWebPath  = $this->manifest()->getAssetBasePath() . '/' . $assetName;
             
             // Если необходимо сжать asset`ы
             if ($this->isCompressorEnabled()) {
@@ -182,14 +183,14 @@ class AssetBuilder
             if ($this->isFreezingEnabled()) {
                 // Вычисляем путь до файла в который будет сохранен asset
                 $assetHash = sha1($assetContent);
-                $assetPath = $this->getFreezingAssetFileName($assetName, $assetHash);
+                $assetSavePath = $this->getFreezingAssetFileName($assetName, $assetHash);
             }
             
             // Сохраняем asset
-            $this->saveAsset($assetPath, $assetContent);
+            $this->saveAsset($assetSavePath, $assetContent);
 
             // Добавляем путь до asset файла в карту asset`ов
-            $this->resultMap()->addAsset($assetName, $assetPath);
+            $this->resultMap()->addAsset($assetName, $assetWebPath);
         }
     }
     
@@ -260,7 +261,7 @@ class AssetBuilder
         $fileInfo = pathinfo($assetName);
         $fileName = $fileInfo['filename'] . '-' . $assetHash . '.' . $fileInfo['extension'];
 
-        return $this->manifest()->getAssetBasePath() . '/' . $fileInfo['dirname'] . '/' . $fileName;
+        return $this->manifest()->getAssetBasePathFromProjectRoot() . '/' . $fileInfo['dirname'] . '/' . $fileName;
     }
 
     /**

@@ -52,7 +52,13 @@ class Manifest
      * @var string
      */
     protected $serverAddress;
-
+    
+    /**
+     * Путь root папки в которой запускается веб морда
+     * @var string
+     */
+    protected $rootDir;
+    
     /**
      * @param string $filePath - путь до файла sam.json
      */
@@ -76,7 +82,8 @@ class Manifest
 
         // Заполняем свойства
         $this->assetBasePath = $json->assetBasePath;
-        $this->resultMapPath = $json->resultMapPath;
+        $this->rootDir       = $json->rootDir;
+        $this->resultMapPath = dirname($this->filePath).'/'.$json->resultMapPath;
         $this->serverAddress = $json->devServerAddress;
 
         foreach ($json->assets as $assetName => $files) {
@@ -132,6 +139,20 @@ class Manifest
         return $this->assetBasePath;
     }
     
+    /**
+     * Получить путь до публичной папки приложения
+     * в которую можно попасть через веб
+     * @return string
+     */
+    public function getAssetBasePathFromProjectRoot()
+    {
+        return $this->rootDir.$this->assetBasePath;
+    }
+    
+    /**
+     * Получить адрес Dev сервера
+     * @return string
+     */
     public function getServerAddress()
     {
         return $this->serverAddress;

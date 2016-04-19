@@ -30,6 +30,7 @@ class ManifestTest extends \PHPUnit_Framework_TestCase
         $manifest = [
             'devServerAddress' => "127.0.0.1:8080",
             'assetBasePath'    => 'vfs://asset/build',
+            'rootDir'          => '',
             'resultMapPath'    => 'vfs://asset/map.json',
             'assets'           => $assets,
         ];

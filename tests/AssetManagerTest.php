@@ -28,12 +28,12 @@ class AssetManagerTest extends \PHPUnit_Framework_TestCase
     {
         
         $manifestFilePath = 'vfs://asset/sam.json';
-        $mapPath          = 'vfs://asset/map.json';
 
         $manifestData = [
             "devServerAddress" => "127.0.0.1:8652",
             'assetBasePath'    => 'vfs://asset/build',
-            'resultMapPath'    => $mapPath,
+            'rootDir'          => '',
+            'resultMapPath'    => 'map.json',
             'assets'           => []
         ];
         
@@ -42,7 +42,7 @@ class AssetManagerTest extends \PHPUnit_Framework_TestCase
             'some/asset.css' => '/assets/some/asset.css',
         ];
 
-        file_put_contents($mapPath, json_encode($assets));
+        file_put_contents('vfs://asset/map.json', json_encode($assets));
         file_put_contents($manifestFilePath, json_encode($manifestData));
         
         $manifest = new Manifest($manifestFilePath);
