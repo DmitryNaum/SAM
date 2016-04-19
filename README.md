@@ -29,7 +29,8 @@ composer require dmitrynaum/sam
 ```json
 {
     "devServerAddress" : "Адрес сервера на котором работает сервер компиляции ассетов на лету",
-    "assetBasePath" : "Базовая папка куда будут сохранены все asset`ы. Должна быть доступна из web!",
+    "assetBasePath" : "Базовая папка куда будут сохранены все asset`ы. Должна быть доступна из web без учета rootDir!",
+    "rootDir"       : "Публичная папка приложения (в которую можно попасть через WEB).",
     "resultMapPath" : "Путь до карты скомпилированных asset`ов ",
     "assets" : { 
         "Название файла в который будет сохранен скомпилированный asset (app.css) является названием asset`а " : [
@@ -44,7 +45,8 @@ composer require dmitrynaum/sam
 ```json
 {
     "devServerAddress" : "127.0.0.1:8090",
-    "assetBasePath" : "public/build/",
+    "assetBasePath" : "build/",
+    "rootDir"       : "public/",
     "resultMapPath" : "asset/map.json",
     "assets" : {
         "app.css" : [
@@ -62,7 +64,7 @@ composer require dmitrynaum/sam
 }
 ```
 
-Asset файлы сохраняются в папку которая указана в `assetBasePath`. Т.е. asset `app.css` из примера
+Asset файлы сохраняются в папку которая указана в `rootDir`+`assetBasePath`. Т.е. asset `app.css` из примера
 выше будет сохранен в `public/build/app.css`
 
 ## Компиляция
